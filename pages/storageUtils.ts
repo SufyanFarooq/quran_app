@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const LAST_READ_KEY = 'last_read_position';
 
 // position: { type: 'surah' | 'juz', surahNumber?, ayahNumber?, juzNumber?, ... }
-export async function saveLastReadPosition(position) {
+export async function saveLastReadPosition(position:any) {
   try {
     await AsyncStorage.setItem(LAST_READ_KEY, JSON.stringify(position));
   } catch (e) {

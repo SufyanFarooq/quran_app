@@ -46,7 +46,7 @@ export default function JuzListScreen() {
                 startAyah: item.start.verse,
                 endSurah: item.end.index,
                 endAyah: item.end.verse,
-                juzName: `${item.title_ar} - ${item.index}`,
+                juzName: `${item.title_ar} - ${parseInt(item.index, 10)}`,
               })
             }
           >

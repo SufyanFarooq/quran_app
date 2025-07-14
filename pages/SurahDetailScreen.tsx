@@ -13,6 +13,11 @@ import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList, getSurah } from '../App';
 import { saveLastReadPosition } from './storageUtils';
 
+function convertToUrduNumeral(numStr: string) {
+  const urduDigits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
+  return numStr.replace(/\d/g, d => urduDigits[parseInt(d)]);
+}
+
 export default function SurahDetailScreen({
   route,
 }: StackScreenProps<RootStackParamList, 'SurahDetail'>) {
@@ -61,7 +66,7 @@ export default function SurahDetailScreen({
     }
   }, [loading, startAyah, ayat, ayahPositions]);
 
-  const handleScroll = (event) => {
+  const handleScroll = (event: { nativeEvent: { contentOffset: { y: number } } }) => {
     const scrollY = event.nativeEvent.contentOffset.y;
     let closestAyah = null;
     let minDiff = Infinity;
@@ -142,24 +147,44 @@ export default function SurahDetailScreen({
                     }}
                   >
                     {/* Card header: Surah name (Arabic) and ayah number */}
-                    <Text
+                    <View
                       style={{
-                        fontSize: 16,
-                        color: '#888',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        backgroundColor: '#b7aea7',
+                        borderTopLeftRadius: 14,
+                        borderTopRightRadius: 14,
+                        paddingVertical: 8,
+                        marginHorizontal: -16,
+                        marginTop: -16,
                         marginBottom: 8,
-                        textAlign: 'right',
-                        fontWeight: 'bold',
-                        fontFamily: 'QCF_BSML',
                       }}
                     >
-                      {`سورة ${surahName} : ${
-                        a.verse
-                          ? a.verse.replace('verse_', '')
-                          : a.ayah
-                          ? a.ayah
-                          : (idx + 1).toString()
-                      }`}
-                    </Text>
+                      {/* Left: 3 dots */}
+                      <Text style={{ fontSize: 22, color: '#222', width: 32, textAlign: 'left', paddingLeft: 10 }}>⋮</Text>
+                      {/* Center: Surah name + ayah number */}
+                      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                        <Text
+                          style={{
+                            fontSize: 16,
+                            color: '#222',
+                            textAlign: 'center',
+                            fontWeight: 'bold',
+                            fontFamily: 'QCF_BSML',
+                          }}
+                        >
+                          {`سورة ${surahName} : ${convertToUrduNumeral(
+                            a.verse
+                              ? a.verse.replace('verse_', '')
+                              : a.ayah
+                              ? a.ayah
+                              : (idx + 1).toString()
+                          )}`}
+                        </Text>
+                      </View>
+                      {/* Right: empty for symmetry */}
+                      <View style={{ width: 32 }} />
+                    </View>
                     {/* Ayat + Medal */}
                     <View
                       style={{
