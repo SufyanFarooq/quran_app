@@ -6,21 +6,21 @@
  */
 
 
-import React, { useEffect, useState } from 'react';
-import { SafeAreaView, Text, FlatList, TouchableOpacity, StyleSheet, ScrollView, StatusBar, ActivityIndicator, ImageBackground, View, Pressable, Platform } from 'react-native';
+import React from 'react';
+import { Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { StackScreenProps } from '@react-navigation/stack';
-import surahList from './quran-data/surah.json';
 import RNFS from 'react-native-fs';
 import MenuScreen from './pages/MenuScreen';
 import SurahListScreen from './pages/SurahListScreen';
 import SurahDetailScreen from './pages/SurahDetailScreen';
 import JuzListScreen from './pages/JuzListScreen';
 import JuzReadingScreen from './pages/JuzReadingScreen';
+import LandingScreen from './pages/LandingScreen';
 
 // Root stack param list for navigation types
 export type RootStackParamList = {
+  Landing: undefined;
   Menu: undefined;
   SurahList: undefined;
   SurahDetail: { surahNumber: string | number; surahName: string; startAyah?: string };
@@ -65,8 +65,9 @@ export const getSurah = async (surahNumber: string | number) => {
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Menu">
-        <Stack.Screen name="Menu" component={MenuScreen} options={{ headerShown: false }} />
+      <Stack.Navigator initialRouteName="Landing">
+        <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Menu" component={MenuScreen} options={{ headerShown: false  }} />
         <Stack.Screen name="SurahList" component={SurahListScreen} options={{ title: 'Surahs' }} />
         <Stack.Screen name="SurahDetail" component={SurahDetailScreen} options={({ route }) => ({ title: route.params.surahName })} />
         <Stack.Screen name="JuzList" component={JuzListScreen} options={{ title: 'Juz Index' }} />
@@ -75,40 +76,3 @@ export default function App() {
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  surahItem: {
-    padding: 16,
-    borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-    backgroundColor: '#f9f9f9',
-  },
-  surahName: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#222',
-  },
-  surahInfo: {
-    fontSize: 14,
-    color: '#666',
-    marginTop: 2,
-  },
-  surahDetailTitle: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginVertical: 16,
-    color: '#007bff',
-  },
-  ayatList: {
-    padding: 20,
-  },
-  ayatText: {
-    fontSize: 20,
-    color: '#222',
-    marginBottom: 12,
-    textAlign: 'right',
-    lineHeight: 32,
-    fontFamily: 'System',
-  },
-});

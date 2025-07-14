@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { SafeAreaView, StatusBar, Text, ActivityIndicator, ScrollView, StyleSheet, View } from 'react-native';
+import { SafeAreaView, StatusBar, Text, ActivityIndicator, ScrollView, StyleSheet, View, Image } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList, getSurah } from '../App';
 import surahList from '../quran-data/surah.json';
+import { saveLastReadPosition } from './storageUtils';
 
 function getJuzAyat(
   ayat: Array<{ surah: string; verse?: string; ayah?: string; text?: string }>,
@@ -26,10 +27,37 @@ function getJuzAyat(
 }
 
 export default function JuzReadingScreen({ route }: StackScreenProps<RootStackParamList, 'JuzReading'>) {
-  const { startSurah, startAyah, endSurah, endAyah, juzName } = route.params;
+  const { startSurah, startAyah, endSurah, endAyah, juzName, ayahNumber } = route.params as (RootStackParamList['JuzReading'] & { ayahNumber?: string });
   const [ayat, setAyat] = useState<Array<{ surah: string; verse?: string; ayah?: string; text?: string }>>([]);
   const [loading, setLoading] = useState(true);
   const scrollRef = useRef<ScrollView>(null);
+  const [ayahPositions, setAyahPositions] = useState<{ [ayahNum: string]: number }>({});
+  const [lastSavedAyah, setLastSavedAyah] = useState(null);
+
+  const handleScroll = (event: { nativeEvent: { contentOffset: { y: number } } }) => {
+    const scrollY = event.nativeEvent.contentOffset.y;
+    let closestAyah = null;
+    let minDiff = Infinity;
+    Object.entries(ayahPositions).forEach(([ayahNum, y]) => {
+      const diff = Math.abs(y - scrollY);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestAyah = ayahNum;
+      }
+    });
+    if (closestAyah && closestAyah !== lastSavedAyah) {
+      setLastSavedAyah(closestAyah);
+      saveLastReadPosition({
+        type: 'juz',
+        startSurah,
+        startAyah,
+        endSurah,
+        endAyah,
+        juzName,
+        ayahNumber: closestAyah,
+      });
+    }
+  };
 
   useEffect(() => {
     setLoading(true);
@@ -56,8 +84,23 @@ export default function JuzReadingScreen({ route }: StackScreenProps<RootStackPa
       const juzAyat = getJuzAyat(allAyat, startSurah, startAyah, endSurah, endAyah);
       setAyat(juzAyat);
       setLoading(false);
+      // Save last read position for juz
+      saveLastReadPosition({
+        type: 'juz',
+        startSurah,
+        startAyah,
+        endSurah,
+        endAyah,
+        juzName,
+      });
     }).catch(() => setLoading(false));
-  }, [startSurah, startAyah, endSurah, endAyah]);
+  }, [startSurah, startAyah, endSurah, endAyah, juzName]);
+
+  useEffect(() => {
+    if (!loading && ayahNumber && ayahPositions[ayahNumber] !== undefined) {
+      scrollRef.current?.scrollTo({ y: ayahPositions[ayahNumber], animated: true });
+    }
+  }, [loading, ayahPositions, ayahNumber]);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#f9f9f2' }}>
@@ -66,25 +109,39 @@ export default function JuzReadingScreen({ route }: StackScreenProps<RootStackPa
       {loading ? (
         <ActivityIndicator size="large" color="#007bff" style={{ marginTop: 40 }} />
       ) : (
-        <ScrollView contentContainerStyle={{ paddingVertical: 16 }} ref={scrollRef}>
-          {ayat.map((a, idx) => (
-            <View
-              key={idx}
-              style={{
-                backgroundColor: '#fff',
-                borderRadius: 14,
-                marginHorizontal: 12,
-                marginBottom: 14,
-                padding: 16,
-                shadowColor: '#000',
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.08,
-                shadowRadius: 6,
-                elevation: 2,
-                borderWidth: 1,
-                borderColor: '#eee',
-              }}
-            >
+        <ScrollView
+          contentContainerStyle={{ paddingVertical: 16 }}
+          ref={scrollRef}
+          onScroll={handleScroll}
+          scrollEventThrottle={100}
+        >
+          {ayat.map((a, idx) => {
+            const ayahNum =
+              (a.verse && a.verse.replace('verse_', '')) ||
+              a.ayah ||
+              (idx + 1).toString();
+            return (
+              <View
+                key={idx}
+                onLayout={event => {
+                  const { y } = event.nativeEvent.layout;
+                  setAyahPositions(pos => ({ ...pos, [ayahNum]: y }));
+                }}
+                style={{
+                  backgroundColor: '#fff',
+                  borderRadius: 14,
+                  marginHorizontal: 12,
+                  marginBottom: 14,
+                  padding: 16,
+                  shadowColor: '#000',
+                  shadowOffset: { width: 0, height: 2 },
+                  shadowOpacity: 0.08,
+                  shadowRadius: 6,
+                  elevation: 2,
+                  borderWidth: 1,
+                  borderColor: '#eee',
+                }}
+              >
               {/* Card header: Surah name (Arabic) and ayah number */}
               <Text
                 style={{
@@ -119,35 +176,51 @@ export default function JuzReadingScreen({ route }: StackScreenProps<RootStackPa
                 >
                   {a.text}
                   <View
-                    style={{
-                      width: 28,
-                      height: 34,
-                      marginLeft: 0,
-                      position: 'relative',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <Text
-                      style={{
-                        position: 'absolute',
-                        top: 23,
-                        left: 0,
-                        right: 8,
-                        textAlign: 'center',
-                        color: '#176d2c',
-                        fontWeight: 'bold',
-                        fontSize: 10,
-                        backgroundColor: 'transparent',
-                      }}
-                    >
-                      {a.verse ? a.verse.replace('verse_', '') : a.ayah ? a.ayah : (idx + 1).toString()}
-                    </Text>
-                  </View>
+                          style={{
+                            width: 28,
+                            height: 34,
+                            marginLeft: 0,
+                            position: 'relative',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                          }}
+                        >
+                          <Image
+                            source={require('../assets/medal.png')}
+                            style={{
+                              width: 20,
+                              height: 28,
+                              position: 'absolute',
+                              top: 18,
+                              left: 0,
+                            }}
+                            resizeMode="contain"
+                          />
+                          <Text
+                            style={{
+                              position: 'absolute',
+                              top: 23,
+                              left: 0,
+                              right: 8,
+                              textAlign: 'center',
+                              color: '#176d2c',
+                              fontWeight: 'bold',
+                              fontSize: 10,
+                              backgroundColor: 'transparent',
+                            }}
+                          >
+                            {a.verse
+                              ? a.verse.replace('verse_', '')
+                              : a.ayah
+                              ? a.ayah
+                              : (idx + 1).toString()}
+                          </Text>
+                        </View>
                 </Text>
               </View>
             </View>
-          ))}
+          );
+        })}
         </ScrollView>
       )}
     </SafeAreaView>

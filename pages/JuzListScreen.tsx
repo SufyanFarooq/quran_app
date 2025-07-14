@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   SafeAreaView,
+  StatusBar,
   FlatList,
   Text,
   View,
@@ -30,8 +31,10 @@ const juzList: JuzItem[] = (
 export default function JuzListScreen() {
   const navigation = useNavigation<NavigationProp>();
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#fff', padding:5 }}>
+      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
       <FlatList
+      style={{marginBottom:20}}
         data={juzList}
         keyExtractor={item => String(item.index)}
         renderItem={({ item }) => (
@@ -56,7 +59,7 @@ export default function JuzListScreen() {
               {/* Arabic title */}
               <Text style={styles.juzTitleAr}>{item.title_ar}</Text>
               <View style={styles.juzMedal}>
-                <Text style={styles.juzMedalText}>{item.index}</Text>
+                <Text style={styles.juzMedalText}>{parseInt(item.index, 10)}</Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -100,9 +103,9 @@ const styles = StyleSheet.create({
     marginRight: 0,
   },
   juzMedalText: {
-    color: '#176d2c',
+    color: '#000',
     fontWeight: 'bold',
-    fontSize: 14,
+    fontSize: 12,
   },
   juzTitleAr: {
     color: '#222',

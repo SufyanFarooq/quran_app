@@ -5,7 +5,7 @@
         "count": 7,
         "title": "Al-Fatiha",
         "title_en": "Al-Fatiha",
-        "title_ar": "الفاتحة",
+        "title_ar": "ٱلْفَاتِحَةُ",
         "index": "001",
         "pages": "1",
         "juz": [
@@ -24,7 +24,7 @@
         "count": 286,
         "title": "Al-Baqara",
         "title_en": "Al-Baqara",
-        "title_ar": "البقرة",
+        "title_ar": "ٱلْبَقَرَةُ",
         "index": "002",
         "pages": "2",
         "juz": [
@@ -57,7 +57,7 @@
         "count": 200,
         "title": "Aal-Imran",
         "title_en": "Aal-Imran",
-        "title_ar": "العمران",
+        "title_ar": "آلِ عِمْرَانَ",
         "index": "003",
         "pages": "45",
         "juz": [
@@ -83,7 +83,7 @@
         "count": 176,
         "title": "An-Nisaa'",
         "title_en": "An-Nisaa'",
-        "title_ar": "النساء",
+        "title_ar": "ٱلنِّسَاءُ",
         "index": "004",
         "pages": "69",
         "juz": [
@@ -116,7 +116,7 @@
         "count": 120,
         "title": "Al-Ma'ida",
         "title_en": "Al-Ma'ida",
-        "title_ar": "المائدة",
+        "title_ar": "ٱلْمَائِدَةُ",
         "index": "005",
         "pages": "95",
         "juz": [
@@ -142,7 +142,7 @@
         "count": 165,
         "title": "Al-An'am",
         "title_en": "Al-An'am",
-        "title_ar": "الانعام",
+        "title_ar": "ٱلْأَنْعَامُ",
         "index": "006",
         "pages": "115",
         "juz": [
@@ -168,7 +168,7 @@
         "count": 206,
         "title": "Al-A'raf",
         "title_en": "Al-A'raf",
-        "title_ar": "العراف",
+        "title_ar": "ٱلْأَعْرَافُ",
         "index": "007",
         "pages": "136",
         "juz": [
@@ -194,7 +194,7 @@
         "count": 75,
         "title": "Al-Anfal",
         "title_en": "Al-Anfal",
-        "title_ar": "الانفال",
+        "title_ar": "ٱلْأَنْفَالُ",
         "index": "008",
         "pages": "160",
         "juz": [
@@ -218,9 +218,9 @@
         "place": "Medina",
         "type": "Madaniyah",
         "count": 129,
-        "title": "Al-Tawba",
-        "title_en": "Al-Tawba",
-        "title_ar": "التوبة",
+        "title": "At-Tawba",
+        "title_en": "At-Tawba",
+        "title_ar": "ٱلتَّوْبَةُ",
         "index": "009",
         "pages": "169",
         "juz": [
@@ -246,7 +246,7 @@
         "count": 109,
         "title": "Yunus",
         "title_en": "Yunus",
-        "title_ar": "يونس",
+        "title_ar": "يُونُسَ",
         "index": "010",
         "pages": "187",
         "juz": [
@@ -265,7 +265,7 @@
         "count": 123,
         "title": "Hud",
         "title_en": "Hud",
-        "title_ar": "هود",
+        "title_ar": "هُودٌ",
         "index": "011",
         "pages": "199",
         "juz": [
@@ -291,7 +291,7 @@
         "count": 111,
         "title": "Yusuf",
         "title_en": "Yusuf",
-        "title_ar": "يوسف",
+        "title_ar": "يُوسُفَ",
         "index": "012",
         "pages": "212",
         "juz": [
@@ -317,7 +317,7 @@
         "count": 43,
         "title": "Ar-Ra'd",
         "title_en": "Ar-Ra'd",
-        "title_ar": "الرعد",
+        "title_ar": "ٱلرَّعْدُ",
         "index": "013",
         "pages": "225",
         "juz": [
@@ -336,7 +336,7 @@
         "count": 52,
         "title": "Ibrahim",
         "title_en": "Ibrahim",
-        "title_ar": "ابراهيم",
+        "title_ar": "إِبْرَاهِيمَ",
         "index": "014",
         "pages": "231",
         "juz": [
@@ -355,7 +355,7 @@
         "count": 99,
         "title": "Al-Hijr",
         "title_en": "Al-Hijr",
-        "title_ar": "الحجر",
+        "title_ar": "ٱلْحِجْرُ",
         "index": "015",
         "pages": "237",
         "juz": [
@@ -374,7 +374,7 @@
         "count": 128,
         "title": "An-Nahl",
         "title_en": "An-Nahl",
-        "title_ar": "النحل",
+        "title_ar": "ٱلنَّحْلُ",
         "index": "016",
         "pages": "242",
         "juz": [
@@ -393,7 +393,7 @@
         "count": 111,
         "title": "Al-Israa",
         "title_en": "Al-Israa",
-        "title_ar": "الإسراء",
+        "title_ar": "ٱلْإِسْرَاءُ",
         "index": "017",
         "pages": "255",
         "juz": [
@@ -412,7 +412,7 @@
         "count": 110,
         "title": "Al-Kahf",
         "title_en": "Al-Kahf",
-        "title_ar": "الكهف",
+        "title_ar": "ٱلْكَهْفُ",
         "index": "018",
         "pages": "266",
         "juz": [
@@ -438,7 +438,7 @@
         "count": 98,
         "title": "Maryam",
         "title_en": "Maryam",
-        "title_ar": "مريم",
+        "title_ar": "مَرْيَمَ",
         "index": "019",
         "pages": "277",
         "juz": [
@@ -457,7 +457,7 @@
         "count": 135,
         "title": "Ta-Ha",
         "title_en": "Ta-Ha",
-        "title_ar": "طه",
+        "title_ar": "طهٰ",
         "index": "020",
         "pages": "284",
         "juz": [
@@ -476,7 +476,7 @@
         "count": 112,
         "title": "Al-Anbiya",
         "title_en": "Al-Anbiya",
-        "title_ar": "الانبياء",
+        "title_ar": "ٱلْأَنْبِيَاءُ",
         "index": "021",
         "pages": "294",
         "juz": [
@@ -495,7 +495,7 @@
         "count": 78,
         "title": "Al-Hajj",
         "title_en": "Al-Hajj",
-        "title_ar": "الحج",
+        "title_ar": "ٱلْحَجُّ",
         "index": "022",
         "pages": "302",
         "juz": [
@@ -514,7 +514,7 @@
         "count": 118,
         "title": "Al-Muminun",
         "title_en": "Al-Muminun",
-        "title_ar": "المؤمنون",
+        "title_ar": "ٱلْمُؤْمِنُونَ",
         "index": "023",
         "pages": "311",
         "juz": [
@@ -533,7 +533,7 @@
         "count": 64,
         "title": "An-Nur",
         "title_en": "An-Nur",
-        "title_ar": "النور",
+        "title_ar": "ٱلنُّورُ",
         "index": "024",
         "pages": "319",
         "juz": [
@@ -552,7 +552,7 @@
         "count": 77,
         "title": "Al-Furqan",
         "title_en": "Al-Furqan",
-        "title_ar": "الفرقان",
+        "title_ar": "ٱلْفُرْقَانُ",
         "index": "025",
         "pages": "329",
         "juz": [
@@ -578,7 +578,7 @@
         "count": 227,
         "title": "Ash-Shuara",
         "title_en": "Ash-Shuara",
-        "title_ar": "الشعراء",
+        "title_ar": "ٱلشُّعَرَاءُ",
         "index": "026",
         "pages": "335",
         "juz": [
@@ -597,7 +597,7 @@
         "count": 93,
         "title": "An-Naml",
         "title_en": "An-Naml",
-        "title_ar": "النمل",
+        "title_ar": "ٱلنَّمْلُ",
         "index": "027",
         "pages": "345",
         "juz": [
@@ -623,7 +623,7 @@
         "count": 88,
         "title": "Al-Qasas",
         "title_en": "Al-Qasas",
-        "title_ar": "القصص",
+        "title_ar": "ٱلْقَصَصُ",
         "index": "028",
         "pages": "354",
         "juz": [
@@ -642,7 +642,7 @@
         "count": 69,
         "title": "Al-Ankabut",
         "title_en": "Al-Ankabut",
-        "title_ar": "العنكبوت",
+        "title_ar": "ٱلْعَنْكَبُوتُ",
         "index": "029",
         "pages": "364",
         "juz": [
@@ -668,7 +668,7 @@
         "count": 60,
         "title": "Ar-Rum",
         "title_en": "Ar-Rum",
-        "title_ar": "الروم",
+        "title_ar": "ٱلرُّومُ",
         "index": "030",
         "pages": "371",
         "juz": [
@@ -687,7 +687,7 @@
         "count": 34,
         "title": "Luqman",
         "title_en": "Luqman",
-        "title_ar": "لقمان",
+        "title_ar": "لُقْمَانُ",
         "index": "031",
         "pages": "377",
         "juz": [
@@ -706,7 +706,7 @@
         "count": 30,
         "title": "As-Sajdah",
         "title_en": "As-Sajdah",
-        "title_ar": "السجدة",
+        "title_ar": "ٱلسَّجْدَةُ",
         "index": "032",
         "pages": "381",
         "juz": [
@@ -725,7 +725,7 @@
         "count": 73,
         "title": "Al-Ahzab",
         "title_en": "Al-Ahzab",
-        "title_ar": "الاحزاب",
+        "title_ar": "ٱلْأَحْزَابُ",
         "index": "033",
         "pages": "383",
         "juz": [
@@ -751,7 +751,7 @@
         "count": 54,
         "title": "Saba",
         "title_en": "Saba",
-        "title_ar": "سبأ",
+        "title_ar": "سَبَإٌ",
         "index": "034",
         "pages": "393",
         "juz": [
@@ -770,7 +770,7 @@
         "count": 45,
         "title": "Fatir",
         "title_en": "Fatir",
-        "title_ar": "فاطر",
+        "title_ar": "فَاطِرُ",
         "index": "035",
         "pages": "399",
         "juz": [
@@ -789,7 +789,7 @@
         "count": 83,
         "title": "Yasin",
         "title_en": "Yasin",
-        "title_ar": "يس",
+        "title_ar": "يَس",
         "index": "036",
         "pages": "404",
         "juz": [
@@ -815,7 +815,7 @@
         "count": 182,
         "title": "As-Saffat",
         "title_en": "As-Saffat",
-        "title_ar": "الصافات",
+        "title_ar": "ٱلصَّافَّاتُ",
         "index": "037",
         "pages": "410",
         "juz": [
@@ -853,7 +853,7 @@
         "count": 75,
         "title": "Az-Zumar",
         "title_en": "Az-Zumar",
-        "title_ar": "الزمر",
+        "title_ar": "ٱلزُّمَرُ",
         "index": "039",
         "pages": "422",
         "juz": [
@@ -879,7 +879,7 @@
         "count": 85,
         "title": "Ghafir",
         "title_en": "Ghafir",
-        "title_ar": "الغافر",
+        "title_ar": "ٱلغَافِرُ",
         "index": "040",
         "pages": "431",
         "juz": [
@@ -898,7 +898,7 @@
         "count": 54,
         "title": "Fussilat",
         "title_en": "Fussilat",
-        "title_ar": "فصلت",
+        "title_ar": "فُصِّلَت",
         "index": "041",
         "pages": "439",
         "juz": [
@@ -924,7 +924,7 @@
         "count": 53,
         "title": "Ash-Shura",
         "title_en": "Ash-Shura",
-        "title_ar": "الشورى",
+        "title_ar": "ٱلشُّورَى",
         "index": "042",
         "pages": "445",
         "juz": [
@@ -943,7 +943,7 @@
         "count": 89,
         "title": "Az-Zukhruf",
         "title_en": "Az-Zukhruf",
-        "title_ar": "الزخرف",
+        "title_ar": "ٱلزُّخْرُفُ",
         "index": "043",
         "pages": "451",
         "juz": [
@@ -962,7 +962,7 @@
         "count": 59,
         "title": "Ad-Dukhan",
         "title_en": "Ad-Dukhan",
-        "title_ar": "الدخان",
+        "title_ar": "ٱلدُّخَانُ",
         "index": "044",
         "pages": "457",
         "juz": [
@@ -981,7 +981,7 @@
         "count": 37,
         "title": "Al-Jathiya",
         "title_en": "Al-Jathiya",
-        "title_ar": "الجاثية",
+        "title_ar": "ٱلجَاثِيَةُ",
         "index": "045",
         "pages": "460",
         "juz": [
@@ -1000,7 +1000,7 @@
         "count": 35,
         "title": "Al-Ahqaf",
         "title_en": "Al-Ahqaf",
-        "title_ar": "الأحقاف",
+        "title_ar": "ٱلأَحْقَافُ",
         "index": "046",
         "pages": "464",
         "juz": [
@@ -1019,7 +1019,7 @@
         "count": 38,
         "title": "Muhammad",
         "title_en": "Muhammad",
-        "title_ar": "محمد",
+        "title_ar": "مُحَمَّدٌ",
         "index": "047",
         "pages": "468",
         "juz": [
@@ -1038,7 +1038,7 @@
         "count": 29,
         "title": "Al-Fath",
         "title_en": "Al-Fath",
-        "title_ar": "الفتح",
+        "title_ar": "ٱلفَتْحُ",
         "index": "048",
         "pages": "472",
         "juz": [
@@ -1057,7 +1057,7 @@
         "count": 18,
         "title": "Al-Hujurat",
         "title_en": "Al-Hujurat",
-        "title_ar": "الحجرات",
+        "title_ar": "ٱلحُجُرَاتُ",
         "index": "049",
         "pages": "477",
         "juz": [
@@ -1095,7 +1095,7 @@
         "count": 60,
         "title": "Az-Zariyat",
         "title_en": "Az-Zariyat",
-        "title_ar": "الذاريات",
+        "title_ar": "ٱلذَّارِيَاتُ",
         "index": "051",
         "pages": "482",
         "juz": [
@@ -1121,7 +1121,7 @@
         "count": 49,
         "title": "At-Tur",
         "title_en": "At-Tur",
-        "title_ar": "الطور",
+        "title_ar": "ٱلطُّورُ",
         "index": "052",
         "pages": "485",
         "juz": [
@@ -1140,7 +1140,7 @@
         "count": 62,
         "title": "An-Najm",
         "title_en": "An-Najm",
-        "title_ar": "النجم",
+        "title_ar": "ٱلنَّجْمُ",
         "index": "053",
         "pages": "487",
         "juz": [
@@ -1159,7 +1159,7 @@
         "count": 55,
         "title": "Al-Qamar",
         "title_en": "Al-Qamar",
-        "title_ar": "القمر",
+        "title_ar": "ٱلقَمَرُ",
         "index": "054",
         "pages": "490",
         "juz": [
@@ -1178,7 +1178,7 @@
         "count": 78,
         "title": "Ar-Rahman",
         "title_en": "Ar-Rahman",
-        "title_ar": "الرحمن",
+        "title_ar": "ٱلرَّحْمَٰنُ",
         "index": "055",
         "pages": "493",
         "juz": [
@@ -1197,7 +1197,7 @@
         "count": 96,
         "title": "Al-Waqia",
         "title_en": "Al-Waqia",
-        "title_ar": "الواقعة",
+        "title_ar": "ٱلوَاقِعَةُ",
         "index": "056",
         "pages": "496",
         "juz": [
@@ -1216,7 +1216,7 @@
         "count": 29,
         "title": "Al-Hadid",
         "title_en": "Al-Hadid",
-        "title_ar": "الحديد",
+        "title_ar": "ٱلحَدِيدُ",
         "index": "057",
         "pages": "499",
         "juz": [
@@ -1235,7 +1235,7 @@
         "count": 22,
         "title": "Al-Mujadilah",
         "title_en": "Al-Mujadilah",
-        "title_ar": "المجادلة",
+        "title_ar": "ٱلمُجَادِلَةُ",
         "index": "058",
         "pages": "504",
         "juz": [
@@ -1254,7 +1254,7 @@
         "count": 24,
         "title": "Al-Hashr",
         "title_en": "Al-Hashr",
-        "title_ar": "الحشر",
+        "title_ar": "ٱلحَشْرُ",
         "index": "059",
         "pages": "507",
         "juz": [
@@ -1273,7 +1273,7 @@
         "count": 13,
         "title": "Al-Mumtahinah",
         "title_en": "Al-Mumtahinah",
-        "title_ar": "الممتحنة",
+        "title_ar": "ٱلمُمْتَحَنَةُ",
         "index": "060",
         "pages": "510",
         "juz": [
@@ -1292,7 +1292,7 @@
         "count": 14,
         "title": "As-Saff",
         "title_en": "As-Saff",
-        "title_ar": "الصافات",
+        "title_ar": "ٱلصَّفُّ",
         "index": "061",
         "pages": "513",
         "juz": [
@@ -1311,7 +1311,7 @@
         "count": 11,
         "title": "Al-Jumu'ah",
         "title_en": "Al-Jumu'ah",
-        "title_ar": "الجمعة",
+        "title_ar": "ٱلجُمُعَةُ",
         "index": "062",
         "pages": "515",
         "juz": [
@@ -1330,7 +1330,7 @@
         "count": 11,
         "title": "Al-Munafiqun",
         "title_en": "Al-Munafiqun",
-        "title_ar": "المنافقون",
+        "title_ar": "ٱلمُنَافِقُونَ",
         "index": "063",
         "pages": "516",
         "juz": [
@@ -1349,7 +1349,7 @@
         "count": 18,
         "title": "At-Taghabun",
         "title_en": "At-Taghabun",
-        "title_ar": "التغابن",
+        "title_ar": "ٱلتَّغَابُنُ",
         "index": "064",
         "pages": "518",
         "juz": [
@@ -1368,7 +1368,7 @@
         "count": 12,
         "title": "At-Talaq",
         "title_en": "At-Talaq",
-        "title_ar": "الطلاق",
+        "title_ar": "ٱلطَّلَاقُ",
         "index": "065",
         "pages": "520",
         "juz": [
@@ -1387,7 +1387,7 @@
         "count": 12,
         "title": "At-Tahrim",
         "title_en": "At-Tahrim",
-        "title_ar": "التحريم",
+        "title_ar": "ٱلتَّحْرِيمُ",
         "index": "066",
         "pages": "522",
         "juz": [
@@ -1406,7 +1406,7 @@
         "count": 30,
         "title": "Al-Mulk",
         "title_en": "Al-Mulk",
-        "title_ar": "الملك",
+        "title_ar": "ٱلمُلْكُ",
         "index": "067",
         "pages": "524",
         "juz": [
@@ -1425,7 +1425,7 @@
         "count": 52,
         "title": "Al-Qalam",
         "title_en": "Al-Qalam",
-        "title_ar": "القلم",
+        "title_ar": "ٱلقَلَمُ",
         "index": "068",
         "pages": "526",
         "juz": [
@@ -1444,7 +1444,7 @@
         "count": 52,
         "title": "Al-Haqqah",
         "title_en": "Al-Haqqah",
-        "title_ar": "الحاقة",
+        "title_ar": "ٱلحَاقَّةُ",
         "index": "069",
         "pages": "529",
         "juz": [
@@ -1463,7 +1463,7 @@
         "count": 44,
         "title": "Al-Ma'arij",
         "title_en": "Al-Ma'arij",
-        "title_ar": "المعارج",
+        "title_ar": "ٱلمَعَارِجُ",
         "index": "070",
         "pages": "531",
         "juz": [
@@ -1482,7 +1482,7 @@
         "count": 28,
         "title": "Nuh",
         "title_en": "Nuh",
-        "title_ar": "",
+        "title_ar": "نُوحٌ",
         "index": "071",
         "pages": "533",
         "juz": [
@@ -1501,7 +1501,7 @@
         "count": 28,
         "title": "Al-Jinn",
         "title_en": "Al-Jinn",
-        "title_ar": "الجن",
+        "title_ar": "ٱلجِنُّ",
         "index": "072",
         "pages": "534",
         "juz": [
@@ -1520,7 +1520,7 @@
         "count": 20,
         "title": "Al-Muzzammil",
         "title_en": "Al-Muzzammil",
-        "title_ar": "المزمل",
+        "title_ar": "ٱلمُزَّمِّلُ",
         "index": "073",
         "pages": "537",
         "juz": [
@@ -1539,7 +1539,7 @@
         "count": 56,
         "title": "Al-Muddaththir",
         "title_en": "Al-Muddaththir",
-        "title_ar": "المدثر",
+        "title_ar": "ٱلمُدَّثِّرُ",
         "index": "074",
         "pages": "538",
         "juz": [
@@ -1558,7 +1558,7 @@
         "count": 40,
         "title": "Al-Qiyamah",
         "title_en": "Al-Qiyamah",
-        "title_ar": "القيامة",
+        "title_ar": "ٱلقِيَامَةُ",
         "index": "075",
         "pages": "540",
         "juz": [
@@ -1577,7 +1577,7 @@
         "count": 31,
         "title": "Al-Insan",
         "title_en": "Al-Insan",
-        "title_ar": "الإنسان",
+        "title_ar": "ٱلإِنسَانُ",
         "index": "076",
         "pages": "542",
         "juz": [
@@ -1596,7 +1596,7 @@
         "count": 50,
         "title": "Al-Mursalat",
         "title_en": "Al-Mursalat",
-        "title_ar": "المرسلات",
+        "title_ar": "ٱلمُرْسَلَاتُ",
         "index": "077",
         "pages": "544",
         "juz": [
@@ -1615,7 +1615,7 @@
         "count": 40,
         "title": "An-Naba",
         "title_en": "An-Naba",
-        "title_ar": "النبأ",
+        "title_ar": "ٱلنَّبَأُ",
         "index": "078",
         "pages": "545",
         "juz": [
@@ -1634,7 +1634,7 @@
         "count": 46,
         "title": "An-Naziat",
         "title_en": "An-Naziat",
-        "title_ar": "النازعات",
+        "title_ar": "ٱلنَّازِعَاتُ",
         "index": "079",
         "pages": "547",
         "juz": [
@@ -1653,7 +1653,7 @@
         "count": 42,
         "title": "Abasa",
         "title_en": "Abasa",
-        "title_ar": "عبس",
+        "title_ar": "عَبَسَ",
         "index": "080",
         "pages": "548",
         "juz": [
@@ -1672,7 +1672,7 @@
         "count": 29,
         "title": "At-Takwir",
         "title_en": "At-Takwir",
-        "title_ar": "التكوير",
+        "title_ar": "ٱلتَّكْوِيرُ",
         "index": "081",
         "pages": "550",
         "juz": [
@@ -1691,7 +1691,7 @@
         "count": 19,
         "title": "Al-Infitar",
         "title_en": "Al-Infitar",
-        "title_ar": "الانفطار",
+        "title_ar": "ٱلإِنفِطَارُ",
         "index": "082",
         "pages": "551",
         "juz": [
@@ -1710,7 +1710,7 @@
         "count": 36,
         "title": "Al-Mutaffifin",
         "title_en": "Al-Mutaffifin",
-        "title_ar": "المطففين",
+        "title_ar": "ٱلمُطَفِّفِينَ",
         "index": "083",
         "pages": "552",
         "juz": [
@@ -1729,7 +1729,7 @@
         "count": 25,
         "title": "Al-Inshiqaq",
         "title_en": "Al-Inshiqaq",
-        "title_ar": "الإنشقاق",
+        "title_ar": "ٱلإِنشِقَاقُ",
         "index": "084",
         "pages": "553",
         "juz": [
@@ -1748,7 +1748,7 @@
         "count": 22,
         "title": "Al-Buruj",
         "title_en": "Al-Buruj",
-        "title_ar": "البروج",
+        "title_ar": "ٱلبُرُوجُ",
         "index": "085",
         "pages": "554",
         "juz": [
@@ -1767,7 +1767,7 @@
         "count": 17,
         "title": "At-Tariq",
         "title_en": "At-Tariq",
-        "title_ar": "الطارق",
+        "title_ar": "ٱلطَّارِقُ",
         "index": "086",
         "pages": "555",
         "juz": [
@@ -1786,7 +1786,7 @@
         "count": 19,
         "title": "Al-Ala",
         "title_en": "Al-Ala",
-        "title_ar": "الاعلى",
+        "title_ar": "ٱلأَعْلى",
         "index": "087",
         "pages": "556",
         "juz": [
@@ -1805,7 +1805,7 @@
         "count": 26,
         "title": "Al-Ghashiyah",
         "title_en": "Al-Ghashiyah",
-        "title_ar": "الغاشية",
+        "title_ar": "ٱلغَاشِيَةُ",
         "index": "088",
         "pages": "556",
         "juz": [
@@ -1824,7 +1824,7 @@
         "count": 30,
         "title": "Al-Fajr",
         "title_en": "Al-Fajr",
-        "title_ar": "الفجر",
+        "title_ar": "ٱلفَجْرُ",
         "index": "089",
         "pages": "557",
         "juz": [
@@ -1843,7 +1843,7 @@
         "count": 20,
         "title": "Al-Balad",
         "title_en": "Al-Balad",
-        "title_ar": "البلد",
+        "title_ar": "ٱلبَلَدُ",
         "index": "090",
         "pages": "559",
         "juz": [
@@ -1862,7 +1862,7 @@
         "count": 15,
         "title": "Ash-Shams",
         "title_en": "Ash-Shams",
-        "title_ar": "الشمس",
+        "title_ar": "ٱلشَّمْسُ",
         "index": "091",
         "pages": "559",
         "juz": [
@@ -1881,7 +1881,7 @@
         "count": 21,
         "title": "Al-Lail",
         "title_en": "Al-Lail",
-        "title_ar": "الليل",
+        "title_ar": "ٱللَّيْلُ",
         "index": "092",
         "pages": "560",
         "juz": [
@@ -1900,7 +1900,7 @@
         "count": 11,
         "title": "Ad-Duha",
         "title_en": "Ad-Duha",
-        "title_ar": "الضحى",
+        "title_ar": "ٱلضُّحى",
         "index": "093",
         "pages": "561",
         "juz": [
@@ -1919,7 +1919,7 @@
         "count": 8,
         "title": "Ash-Sharh",
         "title_en": "Ash-Sharh",
-        "title_ar": "الشرح",
+        "title_ar": "ٱلشَّرْحُ",
         "index": "094",
         "pages": "561",
         "juz": [
@@ -1938,7 +1938,7 @@
         "count": 8,
         "title": "At-Tin",
         "title_en": "At-Tin",
-        "title_ar": "التين",
+        "title_ar": "ٱلتِّينُ",
         "index": "095",
         "pages": "562",
         "juz": [
@@ -1957,7 +1957,7 @@
         "count": 19,
         "title": "Al-Alaq",
         "title_en": "Al-Alaq",
-        "title_ar": "العلق",
+        "title_ar": "ٱلعَلَقُ",
         "index": "096",
         "pages": "562",
         "juz": [
@@ -1976,7 +1976,7 @@
         "count": 5,
         "title": "Al-Qadr",
         "title_en": "Al-Qadr",
-        "title_ar": "القدر",
+        "title_ar": "ٱلقَدْرُ",
         "index": "097",
         "pages": "563",
         "juz": [
@@ -1995,7 +1995,7 @@
         "count": 8,
         "title": "Al-Bayinah",
         "title_en": "Al-Bayinah",
-        "title_ar": "البينة",
+        "title_ar": "ٱلبَيِّنَةُ",
         "index": "098",
         "pages": "563",
         "juz": [
@@ -2014,7 +2014,7 @@
         "count": 8,
         "title": "Az-Zalzalah",
         "title_en": "Az-Zalzalah",
-        "title_ar": "الزلزلة",
+        "title_ar": "ٱلزَّلْزَلَةُ",
         "index": "099",
         "pages": "564",
         "juz": [
@@ -2033,7 +2033,7 @@
         "count": 11,
         "title": "Al-Adiyat",
         "title_en": "Al-Adiyat",
-        "title_ar": "العاديات",
+        "title_ar": "ٱلعَادِيَاتُ",
         "index": "100",
         "pages": "564",
         "juz": [
@@ -2052,7 +2052,7 @@
         "count": 11,
         "title": "Al-Qariah",
         "title_en": "Al-Qariah",
-        "title_ar": "القارعة",
+        "title_ar": "ٱلقَارِعَةُ",
         "index": "101",
         "pages": "565",
         "juz": [
@@ -2071,7 +2071,7 @@
         "count": 8,
         "title": "Al-Takathur",
         "title_en": "Al-Takathur",
-        "title_ar": "التكاثر",
+        "title_ar": "ٱلتَّكَاثُرُ",
         "index": "102",
         "pages": "565",
         "juz": [
@@ -2090,7 +2090,7 @@
         "count": 3,
         "title": "Al-Asr",
         "title_en": "Al-Asr",
-        "title_ar": "العصر",
+        "title_ar": "ٱلعَصْرُ",
         "index": "103",
         "pages": "566",
         "juz": [
@@ -2109,7 +2109,7 @@
         "count": 9,
         "title": "Al-Humazah",
         "title_en": "Al-Humazah",
-        "title_ar": "الهمزة",
+        "title_ar": "ٱلهُمَزَةُ",
         "index": "104",
         "pages": "566",
         "juz": [
@@ -2128,7 +2128,7 @@
         "count": 5,
         "title": "Al-Fil",
         "title_en": "Al-Fil",
-        "title_ar": "الفيل",
+        "title_ar": "ٱلفِيلُ",
         "index": "105",
         "pages": "566",
         "juz": [
@@ -2147,7 +2147,7 @@
         "count": 4,
         "title": "Quraish",
         "title_en": "Quraish",
-        "title_ar": "قريش",
+        "title_ar": "قُرَيْشٍ",
         "index": "106",
         "pages": "567",
         "juz": [
@@ -2166,7 +2166,7 @@
         "count": 7,
         "title": "Al-Ma'un",
         "title_en": "Al-Ma'un",
-        "title_ar": "الماعون",
+        "title_ar": "ٱلمَاعُونُ",
         "index": "107",
         "pages": "567",
         "juz": [
@@ -2185,7 +2185,7 @@
         "count": 3,
         "title": "Al-Kauthar",
         "title_en": "Al-Kauthar",
-        "title_ar": "الكوثر",
+        "title_ar": "ٱلكَوْثَرُ",
         "index": "108",
         "pages": "567",
         "juz": [
@@ -2204,7 +2204,7 @@
         "count": 6,
         "title": "Al-Kafirun",
         "title_en": "Al-Kafirun",
-        "title_ar": "الكافرون",
+        "title_ar": "ٱلكَافِرُونَ",
         "index": "109",
         "pages": "568",
         "juz": [
@@ -2223,7 +2223,7 @@
         "count": 3,
         "title": "An-Nasr",
         "title_en": "An-Nasr",
-        "title_ar": "النصر",
+        "title_ar": "ٱلنَّصْرُ",
         "index": "110",
         "pages": "568",
         "juz": [
@@ -2242,7 +2242,7 @@
         "count": 5,
         "title": "Al-Masad/Al-Lahab",
         "title_en": "Al-Masad/Al-Lahab",
-        "title_ar": "المسد/اللهب",
+        "title_ar": "ٱلمَسَدُّ/ٱللَّهَبُ",
         "index": "111",
         "pages": "568",
         "juz": [
@@ -2261,7 +2261,7 @@
         "count": 4,
         "title": "Al-Ikhlas",
         "title_en": "Al-Ikhlas",
-        "title_ar": "الإخلاص",
+        "title_ar": "ٱلإِخْلَاصُ",
         "index": "112",
         "pages": "569",
         "juz": [
@@ -2280,7 +2280,7 @@
         "count": 5,
         "title": "Al-Falaq",
         "title_en": "Al-Falaq",
-        "title_ar": "الفلق",
+        "title_ar": "ٱلفَلَقُ",
         "index": "113",
         "pages": "569",
         "juz": [
@@ -2299,7 +2299,7 @@
         "count": 6,
         "title": "An-Nas",
         "title_en": "An-Nas",
-        "title_ar": "الناس",
+        "title_ar": "ٱلنَّاسُ",
         "index": "114",
         "pages": "569",
         "juz": [

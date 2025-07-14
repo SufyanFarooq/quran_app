@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList, getSurah } from '../App';
-import Svg, { Circle } from 'react-native-svg';
+import { saveLastReadPosition } from './storageUtils';
 
 export default function SurahDetailScreen({
   route,
@@ -22,6 +22,9 @@ export default function SurahDetailScreen({
   >([]);
   const [loading, setLoading] = useState(true);
   const scrollRef = useRef<ScrollView>(null);
+  const [ayahPositions, setAyahPositions] = useState<{ [ayahNum: string]: number }>({});
+  // Throttle state for last saved ayah
+  const [lastSavedAyah, setLastSavedAyah] = useState(null);
 
   useEffect(() => {
     setLoading(true);
@@ -30,39 +33,56 @@ export default function SurahDetailScreen({
         console.log("surah data", data)
         setAyat(data);
         setLoading(false);
+        // Save last read position (first ayah by default)
+        saveLastReadPosition({
+          type: 'surah',
+          surahNumber,
+          surahName,
+          ayahNumber: startAyah || (data[0]?.verse || data[0]?.ayah || '1'),
+        });
         // Reset to first page on surah change
       })
       .catch(() => setLoading(false));
-  }, [surahNumber]);
+  }, [surahNumber, startAyah, surahName]);
 
-  // Inline SVG medal component for verse number (bigger for new font size)
-  const InlineMedalSVG = ({ verseNum }: { verseNum: string }) => (
-    <Svg
-      height="32"
-      width="32"
-      style={{ marginHorizontal: 8, marginBottom: -2 }}
-    >
-      <Circle
-        cx="16"
-        cy="16"
-        r="15"
-        stroke="#176d2c"
-        strokeWidth="2"
-        fill="#fff"
-      />
-      <Text
-        x="16"
-        y="21"
-        fontSize="16"
-        fill="#176d2c"
-        fontWeight="bold"
-        textAnchor="middle"
-        alignmentBaseline="middle"
-      >
-        {verseNum}
-      </Text>
-    </Svg>
-  );
+  // Scroll to the selected ayah after ayat are loaded
+  useEffect(() => {
+    if (
+      !loading &&
+      startAyah &&
+      ayat.length > 0 &&
+      scrollRef.current &&
+      ayahPositions[startAyah] !== undefined
+    ) {
+      // Small delay to ensure all layouts are measured
+      setTimeout(() => {
+        scrollRef.current?.scrollTo({ y: ayahPositions[startAyah], animated: true });
+      }, 100);
+    }
+  }, [loading, startAyah, ayat, ayahPositions]);
+
+  const handleScroll = (event) => {
+    const scrollY = event.nativeEvent.contentOffset.y;
+    let closestAyah = null;
+    let minDiff = Infinity;
+    Object.entries(ayahPositions).forEach(([ayahNum, y]) => {
+      const diff = Math.abs(y - scrollY);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestAyah = ayahNum;
+      }
+    });
+    if (closestAyah && closestAyah !== lastSavedAyah) {
+      setLastSavedAyah(closestAyah);
+      saveLastReadPosition({
+        type: 'surah',
+        surahNumber,
+        surahName,
+        ayahNumber: closestAyah,
+      });
+    }
+  };
+
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#f9f9f2' }}>
@@ -83,114 +103,127 @@ export default function SurahDetailScreen({
             {ayat.length} ayat loaded
           </Text>
           <ScrollView
+            ref={scrollRef}
             style={{ flex: 1 }}
             contentContainerStyle={{ paddingVertical: 16 }}
+            onScroll={handleScroll}
+            scrollEventThrottle={100}
           >
             {ayat
               .filter(
                 (a, idx) =>
                   !(idx === 0 && (a.verse === 'verse_0' || a.ayah === '0')),
               )
-              .map((a, idx) => (
-                <View
-                  key={idx}
-                  style={{
-                    backgroundColor: '#fff',
-                    borderRadius: 14,
-                    marginHorizontal: 12,
-                    marginBottom: 14,
-                    padding: 16,
-                    shadowColor: '#000',
-                    shadowOffset: { width: 0, height: 2 },
-                    shadowOpacity: 0.08,
-                    shadowRadius: 6,
-                    elevation: 2,
-                    borderWidth: 1,
-                    borderColor: '#eee',
-                  }}
-                >
-                  {/* Card header: Surah name (Arabic) and ayah number */}
-                  <Text
-                    style={{
-                      fontSize: 16,
-                      color: '#888',
-                      marginBottom: 8,
-                      textAlign: 'right',
-                      fontWeight: 'bold',
-                      fontFamily: 'QCF_BSML',
-                    }}
-                  >
-                    {`سورة ${surahName} : ${
-                      a.verse
-                        ? a.verse.replace('verse_', '')
-                        : a.ayah
-                        ? a.ayah
-                        : (idx + 1).toString()
-                    }`}
-                  </Text>
-                  {/* Ayat + Medal */}
+              .map((a, idx) => {
+                const ayahNum =
+                  (a.verse && a.verse.replace('verse_', '')) ||
+                  a.ayah ||
+                  (idx + 1).toString();
+                return (
                   <View
+                    key={idx}
+                    onLayout={event => {
+                      const { y } = event.nativeEvent.layout;
+                      setAyahPositions(pos => ({ ...pos, [ayahNum]: y }));
+                    }}
                     style={{
-                      flexDirection: 'row-reverse',
-                      alignItems: 'center',
+                      backgroundColor: '#fff',
+                      borderRadius: 14,
+                      marginHorizontal: 12,
+                      marginBottom: 14,
+                      padding: 16,
+                      shadowColor: '#000',
+                      shadowOffset: { width: 0, height: 2 },
+                      shadowOpacity: 0.08,
+                      shadowRadius: 6,
+                      elevation: 2,
+                      borderWidth: 1,
+                      borderColor: '#eee',
                     }}
                   >
+                    {/* Card header: Surah name (Arabic) and ayah number */}
                     <Text
                       style={{
-                        fontSize: 24,
-                        color: '#222',
+                        fontSize: 16,
+                        color: '#888',
+                        marginBottom: 8,
                         textAlign: 'right',
-                        flexShrink: 1,
-                        marginLeft: 2,
+                        fontWeight: 'bold',
                         fontFamily: 'QCF_BSML',
                       }}
                     >
-                      {a.text}
-                      <View
+                      {`سورة ${surahName} : ${
+                        a.verse
+                          ? a.verse.replace('verse_', '')
+                          : a.ayah
+                          ? a.ayah
+                          : (idx + 1).toString()
+                      }`}
+                    </Text>
+                    {/* Ayat + Medal */}
+                    <View
+                      style={{
+                        flexDirection: 'row-reverse',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Text
                         style={{
-                          width: 28,
-                          height: 34,
-                          marginLeft: 0,
-                          position: 'relative',
-                          justifyContent: 'center',
-                          alignItems: 'center',
+                          fontSize: 24,
+                          color: '#222',
+                          textAlign: 'right',
+                          flexShrink: 1,
+                          marginLeft: 2,
+                          fontFamily: 'QCF_BSML',
                         }}
                       >
-                        <Image
-                          source={require('../assets/medal.png')}
+                        {a.text}
+                        <View
                           style={{
-                            width: 20,
-                            height: 28,
-                            position: 'absolute',
-                            top: 18,
-                            left: 0,
-                          }}
-                          resizeMode="contain"
-                        />
-                        <Text
-                          style={{
-                            position: 'absolute',
-                            top: 23,
-                            left: 0,
-                            right: 8,
-                            textAlign: 'center',
-                            color: '#176d2c',
-                            fontWeight: 'bold',
-                            fontSize: 10,
-                            backgroundColor: 'transparent',
+                            width: 28,
+                            height: 34,
+                            marginLeft: 0,
+                            position: 'relative',
+                            justifyContent: 'center',
+                            alignItems: 'center',
                           }}
                         >
-                          {a.verse
-                            ? a.verse.replace('verse_', '')
-                            : a.ayah
-                            ? a.ayah
-                            : (idx + 1).toString()}
-                        </Text>
-                      </View>
-                    </Text>
+                          <Image
+                            source={require('../assets/medal.png')}
+                            style={{
+                              width: 20,
+                              height: 28,
+                              position: 'absolute',
+                              top: 18,
+                              left: 0,
+                            }}
+                            resizeMode="contain"
+                          />
+                          <Text
+                            style={{
+                              position: 'absolute',
+                              top: 23,
+                              left: 0,
+                              right: 8,
+                              textAlign: 'center',
+                              color: '#176d2c',
+                              fontWeight: 'bold',
+                              fontSize: 10,
+                              backgroundColor: 'transparent',
+                            }}
+                          >
+                            {a.verse
+                              ? a.verse.replace('verse_', '')
+                              : a.ayah
+                              ? a.ayah
+                              : (idx + 1).toString()}
+                          </Text>
+                        </View>
+                      </Text>
+                    </View>
                   </View>
-                </View>
-              ))}
+                );
+              })}
           </ScrollView>
         </View>
       )}
