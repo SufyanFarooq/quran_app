@@ -1,0 +1,359 @@
+import React, { useEffect, useState, useRef } from 'react';
+import {
+  StatusBar,
+  Text,
+  ActivityIndicator,
+  ScrollView,
+  View,
+  Image,
+  Modal,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { StackScreenProps } from '@react-navigation/stack';
+import { RootStackParamList, getSurah } from '../../App';
+import surahList from '../../quran-data/surah.json';
+import { saveLastReadPosition, addBookmark } from '../storageUtils';
+import styles from './JuzReadingScreen.style';
+function getJuzAyat(
+  ayat: Array<{ surah: string; verse?: string; ayah?: string; text?: string }>,
+  startSurah: string,
+  startAyah: string,
+  endSurah: string,
+  endAyah: string,
+): Array<{ surah: string; verse?: string; ayah?: string; text?: string }> {
+  const sStart = parseInt(startSurah, 10);
+  const sEnd = parseInt(endSurah, 10);
+  const aStart = parseInt(startAyah.replace('verse_', ''), 10);
+  const aEnd = parseInt(endAyah.replace('verse_', ''), 10);
+  return ayat.filter(a => {
+    const surah = parseInt(a.surah, 10);
+    const ayah = parseInt(a.verse?.replace('verse_', '') || a.ayah || '0', 10);
+    if (surah < sStart || surah > sEnd) return false;
+    if (surah === sStart && ayah < aStart) return false;
+    if (surah === sEnd && ayah > aEnd) return false;
+    return true;
+  });
+}
+
+function convertToUrduNumeral(numStr: string) {
+  const urduDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+  return numStr.replace(/\d/g, d => urduDigits[parseInt(d)]);
+}
+
+export default function JuzReadingScreen({
+  route,
+}: StackScreenProps<RootStackParamList, 'JuzReading'>) {
+  const { startSurah, startAyah, endSurah, endAyah, juzName, ayahNumber } =
+    route.params as RootStackParamList['JuzReading'] & { ayahNumber?: string };
+  const [ayat, setAyat] = useState<
+    Array<{ surah: string; verse?: string; ayah?: string; text?: string }>
+  >([]);
+  const [loading, setLoading] = useState(true);
+  const scrollRef = useRef<ScrollView>(null);
+  const [ayahPositions, setAyahPositions] = useState<{
+    [ayahNum: string]: number;
+  }>({});
+  const [lastSavedAyah, setLastSavedAyah] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedAyah, setSelectedAyah] = useState<any>(null);
+
+  const handleScroll = (event: {
+    nativeEvent: { contentOffset: { y: number } };
+  }) => {
+    const scrollY = event.nativeEvent.contentOffset.y;
+    let closestAyah = null;
+    let minDiff = Infinity;
+    Object.entries(ayahPositions).forEach(([ayahNum, y]) => {
+      const diff = Math.abs(y - scrollY);
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestAyah = ayahNum;
+      }
+    });
+    if (closestAyah && closestAyah !== lastSavedAyah) {
+      setLastSavedAyah(closestAyah);
+      saveLastReadPosition({
+        type: 'juz',
+        startSurah,
+        startAyah,
+        endSurah,
+        endAyah,
+        juzName,
+        ayahNumber: closestAyah,
+      });
+    }
+  };
+
+  useEffect(() => {
+    setLoading(true);
+    // Load all surahs in this Juz
+    const surahNums: number[] = [];
+    for (let i = parseInt(startSurah, 10); i <= parseInt(endSurah, 10); i++) {
+      surahNums.push(i);
+    }
+    Promise.all(surahNums.map(num => getSurah(num)))
+      .then(results => {
+        // Flatten and add surah number to each ayah
+        const allAyat = results.flat().map((a, idx) => {
+          // Find which surah this ayah belongs to
+          let surah = surahNums[0];
+          let count = 0;
+          for (let i = 0; i < results.length; i++) {
+            count += results[i].length;
+            if (idx < count) {
+              surah = surahNums[i];
+              break;
+            }
+          }
+          return { ...a, surah: surah.toString() };
+        });
+        const juzAyat = getJuzAyat(
+          allAyat,
+          startSurah,
+          startAyah,
+          endSurah,
+          endAyah,
+        );
+        setAyat(juzAyat);
+        setLoading(false);
+        // Save last read position for juz
+        saveLastReadPosition({
+          type: 'juz',
+          startSurah,
+          startAyah,
+          endSurah,
+          endAyah,
+          juzName,
+        });
+      })
+      .catch(() => setLoading(false));
+  }, [startSurah, startAyah, endSurah, endAyah, juzName]);
+
+  useEffect(() => {
+    if (!loading && ayahNumber && ayahPositions[ayahNumber] !== undefined) {
+      scrollRef.current?.scrollTo({
+        y: ayahPositions[ayahNumber],
+        animated: true,
+      });
+    }
+  }, [loading, ayahPositions, ayahNumber]);
+
+  return (
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#f9f9f2',  }} edges={['left', 'right', 'bottom']}>
+      <StatusBar barStyle="dark-content" backgroundColor="#fff" />
+      <Text style={styles.surahDetailTitle}>{juzName}</Text>
+      {loading ? (
+        <ActivityIndicator
+          size="large"
+          color="#007bff"
+          // style={{ marginTop: 40 }}
+        />
+      ) : (
+        <ScrollView
+          contentContainerStyle={{ paddingVertical: 16 }}
+          ref={scrollRef}
+          onScroll={handleScroll}
+          scrollEventThrottle={100}
+        >
+          {ayat.map((a, idx) => {
+            const ayahNum =
+              (a.verse && a.verse.replace('verse_', '')) ||
+              a.ayah ||
+              (idx + 1).toString();
+            return (
+              <View
+                key={idx}
+                onLayout={event => {
+                  const { y } = event.nativeEvent.layout;
+                  setAyahPositions(pos => ({ ...pos, [ayahNum]: y }));
+                }}
+                style={styles.ayahCard}
+              >
+                {/* Card header: Surah name (Arabic) and ayah number */}
+                <View
+                  style={styles.cardHeader}
+                >
+                  <Text
+                    style={styles.cardHeaderText}
+                    onPress={() => {
+                      setSelectedAyah({
+                        type: 'juz',
+                        startSurah,
+                        startAyah,
+                        endSurah,
+                        endAyah,
+                        juzName,
+                        surahNumber: a.surah,
+                        ayahNumber: a.verse
+                          ? a.verse.replace('verse_', '')
+                          : a.ayah
+                          ? a.ayah
+                          : (idx + 1).toString(),
+                      });
+                      setModalVisible(true);
+                    }}
+                  >
+                    ⋮
+                  </Text>
+                  {/* Center: Surah name + ayah number */}
+                  <View
+                    style={styles.cardHeaderCenter}
+                  >
+                    <Text
+                      style={styles.cardHeaderTitle}
+                    >
+                      {`سورة ${
+                        surahList.find(
+                          s => s.index === a.surah.padStart(3, '0'),
+                        )?.title_ar || a.surah
+                      } : ${convertToUrduNumeral(
+                        a.verse
+                          ? a.verse.replace('verse_', '')
+                          : a.ayah
+                          ? a.ayah
+                          : (idx + 1).toString(),
+                      )}`}
+                    </Text>
+                  </View>
+                  {/* Right: empty for symmetry */}
+                  <View style={styles.cardHeaderRight} />
+                </View>
+                {/* Ayat + Medal */}
+                <View
+                  style={styles.ayatMedalContainer}
+                >
+                  <Text
+                    style={styles.ayatText}
+                  >
+                    {a.text}
+                    <View
+                      style={styles.medalContainer}
+                    >
+                      <Image
+                        source={require('../../assets/medal.png')}
+                        style={styles.medalImage}
+                        resizeMode="contain"
+                      />
+                      <Text
+                        style={styles.medalText}
+                      >
+                        {a.verse
+                          ? a.verse.replace('verse_', '')
+                          : a.ayah
+                          ? a.ayah
+                          : (idx + 1).toString()}
+                      </Text>
+                    </View>
+                  </Text>
+                </View>
+              </View>
+            );
+          })}
+        </ScrollView>
+      )}
+      {/* Bottom Sheet Modal */}
+      <Modal
+        visible={modalVisible}
+        transparent
+        animationType="slide"
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View
+          style={{
+            flex: 1,
+            justifyContent: 'flex-end',
+            backgroundColor: 'rgba(0,0,0,0.25)',
+            paddingHorizontal:12
+          }}
+        >
+          <View
+            style={{
+              backgroundColor: '#fff',
+              borderTopLeftRadius: 18,
+              borderTopRightRadius: 18,
+              width: '100%',
+              overflow: 'hidden',
+            }}
+          >
+            {/* Dropdown Arrow */}
+            <TouchableOpacity
+              style={{ alignItems: 'center' }}
+              onPress={() => setModalVisible(false)}
+            >
+              <Image
+                source={require('../../assets/modal/down.png')}
+                style={{
+                  width: 32,
+                  height: 32,
+                  marginVertical: 8,
+                  tintColor: '#aaa',
+                }}
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
+
+            {/* Menu List */}
+            {[
+              {
+                key: 'play',
+                label: 'Play Ayah',
+                icon: require('../../assets/modal/play.png'),
+                onPress: () => Alert.alert('Coming soon!'),
+              },
+              {
+                key: 'bookmark',
+                label: 'Bookmark',
+                icon: require('../../assets/modal/favorite.png'),
+                onPress: async () => {
+                  if (selectedAyah) await addBookmark(selectedAyah);
+                  setModalVisible(false);
+                },
+              },
+              {
+                key: 'copy',
+                label: 'Copy',
+                icon: require('../../assets/modal/sheet.png'),
+                onPress: () => Alert.alert('Coming soon!'),
+              },
+              {
+                key: 'share',
+                label: 'Share only text',
+                icon: require('../../assets/modal/share-text.png'),
+                onPress: () => Alert.alert('Coming soon!'),
+              },
+              {
+                key: 'share_bg',
+                label: 'Share text with background',
+                icon: require('../../assets/modal/share-image.png'),
+                onPress: () => Alert.alert('Coming soon!'),
+              },
+            ].map(item => (
+              <TouchableOpacity
+                key={item.key}
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  paddingVertical: 14,
+                  paddingHorizontal: 24,
+                }}
+                onPress={item.onPress}
+              >
+                <Image
+                  source={item.icon}
+                  style={{ width: 28, height: 28, marginRight: 8 }}
+                  resizeMode="contain"
+                />
+                <Text style={{ fontSize: 18, marginLeft: 8 }}>
+                  {item.label}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
+      </Modal>
+      
+    </SafeAreaView>
+  );
+}

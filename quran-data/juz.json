@@ -5,7 +5,7 @@
         "title_ar": "الم",
         "start": {
             "index": "001",
-            "verse": "verse_1",
+            "verse": "verse_0",
             "name": "Al-Fatiha"
         },
         "end": {
@@ -40,7 +40,7 @@
         },
         "end": {
             "index": "003",
-            "verse": "verse_92",
+            "verse": "verse_91",
             "name": "Aal-Imran"
         }
     },
@@ -50,7 +50,7 @@
         "title_ar": "لَنْ تَنَالُوا۟",
         "start": {
             "index": "003",
-            "verse": "verse_93",
+            "verse": "verse_92",
             "name": "Aal-Imran"
         },
         "end": {
@@ -85,7 +85,7 @@
         },
         "end": {
             "index": "005",
-            "verse": "verse_81",
+            "verse": "verse_82",
             "name": "Al-Ma'ida"
         }
     },
@@ -95,7 +95,7 @@
         "title_ar": "وَإِذَا سَمِعُوا۟",
         "start": {
             "index": "005",
-            "verse": "verse_82",
+            "verse": "verse_83",
             "name": "Al-Ma'ida"
         },
         "end": {
@@ -145,7 +145,7 @@
         },
         "end": {
             "index": "009",
-            "verse": "verse_92",
+            "verse": "verse_93",
             "name": "Al-Tawba"
         }
     },
@@ -155,7 +155,7 @@
         "title_ar": "يَعْتَذِرُونَ",
         "start": {
             "index": "009",
-            "verse": "verse_93",
+            "verse": "verse_94",
             "name": "Al-Tawba"
         },
         "end": {
@@ -189,9 +189,9 @@
             "name": "Yusuf"
         },
         "end": {
-            "index": "014",
-            "verse": "verse_52",
-            "name": "Ibrahim"
+            "index": "015",
+            "verse": "verse_01",
+            "name": "Al-Hijr"
         }
     },
     {
@@ -200,7 +200,7 @@
         "title_ar": "رُبَمَا",
         "start": {
             "index": "015",
-            "verse": "verse_1",
+            "verse": "verse_2",
             "name": "Al-Hijr"
         },
         "end": {
@@ -215,7 +215,7 @@
         "title_ar": "سُبْحَٰنَ ٱلَّذِى",
         "start": {
             "index": "017",
-            "verse": "verse_1",
+            "verse": "verse_0",
             "name": "Al-Israa"
         },
         "end": {
@@ -245,7 +245,7 @@
         "title_ar": "ٱقْتَرَبَتْ",
         "start": {
             "index": "021",
-            "verse": "verse_1",
+            "verse": "verse_0",
             "name": "Al-Anbiya"
         },
         "end": {
@@ -260,7 +260,7 @@
         "title_ar": "قَدْ أَفْلَحَ",
         "start": {
             "index": "023",
-            "verse": "verse_1",
+            "verse": "verse_0",
             "name": "Al-Muminun"
         },
         "end": {
@@ -280,7 +280,7 @@
         },
         "end": {
             "index": "027",
-            "verse": "verse_55",
+            "verse": "verse_59",
             "name": "An-Naml"
         }
     },
@@ -290,12 +290,12 @@
         "title_ar": "أَمَّنْ خَلَقَ",
         "start": {
             "index": "027",
-            "verse": "verse_56",
+            "verse": "verse_60",
             "name": "An-Naml"
         },
         "end": {
             "index": "029",
-            "verse": "verse_45",
+            "verse": "verse_44",
             "name": "Al-Ankabut"
         }
     },
@@ -305,7 +305,7 @@
         "title_ar": "أُتْلُ مَآ أُوحِىَ",
         "start": {
             "index": "029",
-            "verse": "verse_46",
+            "verse": "verse_45",
             "name": "Al-Ankabut"
         },
         "end": {
@@ -325,7 +325,7 @@
         },
         "end": {
             "index": "036",
-            "verse": "verse_27",
+            "verse": "verse_21",
             "name": "Yasin"
         }
     },
@@ -335,7 +335,7 @@
         "title_ar": "وَمَا لِيَ",
         "start": {
             "index": "036",
-            "verse": "verse_28",
+            "verse": "verse_22",
             "name": "Yasin"
         },
         "end": {
@@ -380,7 +380,7 @@
         "title_ar": "حم",
         "start": {
             "index": "046",
-            "verse": "verse_1",
+            "verse": "verse_0",
             "name": "Al-Ahqaf"
         },
         "end": {
@@ -410,7 +410,7 @@
         "title_ar": "قَدْ سَمِعَ ٱللَّهُ",
         "start": {
             "index": "058",
-            "verse": "verse_1",
+            "verse": "verse_0",
             "name": "Al-Mujadilah"
         },
         "end": {
@@ -425,7 +425,7 @@
         "title_ar": "تَبَارَكَ ٱلَّذِى",
         "start": {
             "index": "067",
-            "verse": "verse_1",
+            "verse": "verse_0",
             "name": "Al-Mulk"
         },
         "end": {
@@ -440,7 +440,7 @@
         "title_ar": "عَمَّ يَتَسَآءَلُونَ",
         "start": {
             "index": "078",
-            "verse": "verse_1",
+            "verse": "verse_0",
             "name": "An-Naba"
         },
         "end": {

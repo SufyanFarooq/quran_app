@@ -5,27 +5,39 @@
  * @format
  */
 
-
 import React from 'react';
 import { Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import RNFS from 'react-native-fs';
-import MenuScreen from './pages/MenuScreen';
-import SurahListScreen from './pages/SurahListScreen';
-import SurahDetailScreen from './pages/SurahDetailScreen';
-import JuzListScreen from './pages/JuzListScreen';
-import JuzReadingScreen from './pages/JuzReadingScreen';
-import LandingScreen from './pages/LandingScreen';
+import MenuScreen from './pages/MenuScreen/MenuScreen';
+import SurahListScreen from './pages/SurahListScreen/SurahListScreen';
+import SurahDetailScreen from './pages/SurahDetailScreen/SurahDetailScreen';
+import JuzListScreen from './pages/JuzListScreen/JuzListScreen';
+import JuzReadingScreen from './pages/JuzReadingScreen/JuzReadingScreen';
+import LandingScreen from './pages/LandingScreen/LandingScreen';
+import BookmarksScreen from './pages/BookmarsScreen/BookmarksScreen';
 
 // Root stack param list for navigation types
 export type RootStackParamList = {
   Landing: undefined;
   Menu: undefined;
   SurahList: undefined;
-  SurahDetail: { surahNumber: string | number; surahName: string; startAyah?: string };
+  SurahDetail: {
+    surahNumber: string | number;
+    surahName: string;
+    startAyah?: string;
+  };
   JuzList: undefined;
-  JuzReading: { startSurah: string; startAyah: string; endSurah: string; endAyah: string; juzName: string };
+  JuzReading: {
+    startSurah: string;
+    startAyah: string;
+    endSurah: string;
+    endAyah: string;
+    juzName: string;
+    ayahNumber?: string;
+  };
+  Bookmarks: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -52,9 +64,15 @@ export const getSurah = async (surahNumber: string | number) => {
     } else if (data.verses) {
       ayatArray = data.verses;
     } else if (data.verse) {
-      ayatArray = Object.entries(data.verse).map(([key, value]) => ({ verse: key, text: value }));
+      ayatArray = Object.entries(data.verse).map(([key, value]) => ({
+        verse: key,
+        text: value,
+      }));
     }
-    console.log('Ayat loaded:', Array.isArray(ayatArray) ? ayatArray.length : typeof ayatArray);
+    console.log(
+      'Ayat loaded:',
+      Array.isArray(ayatArray) ? ayatArray.length : typeof ayatArray,
+    );
     return ayatArray || [];
   } catch (e) {
     console.log('Error loading surah:', e);
@@ -66,12 +84,41 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Landing">
-        <Stack.Screen name="Landing" component={LandingScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Menu" component={MenuScreen} options={{ headerShown: false  }} />
-        <Stack.Screen name="SurahList" component={SurahListScreen} options={{ title: 'Surahs' }} />
-        <Stack.Screen name="SurahDetail" component={SurahDetailScreen} options={({ route }) => ({ title: route.params.surahName })} />
-        <Stack.Screen name="JuzList" component={JuzListScreen} options={{ title: 'Juz Index' }} />
-        <Stack.Screen name="JuzReading" component={JuzReadingScreen} options={({ route }) => ({ title: route.params.juzName })} />
+        <Stack.Screen
+          name="Landing"
+          component={LandingScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Menu"
+          component={MenuScreen}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="SurahList"
+          component={SurahListScreen}
+          options={{ title: 'Surahs' }}
+        />
+        <Stack.Screen
+          name="SurahDetail"
+          component={SurahDetailScreen}
+          options={({ route }) => ({ title: route.params.surahName })}
+        />
+        <Stack.Screen
+          name="JuzList"
+          component={JuzListScreen}
+          options={{ title: 'Juz Index' }}
+        />
+        <Stack.Screen
+          name="JuzReading"
+          component={JuzReadingScreen}
+          options={({ route }) => ({ title: route.params.juzName })}
+        />
+        <Stack.Screen
+          name="Bookmarks"
+          component={BookmarksScreen}
+          options={{ title: 'Bookmarks' }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
