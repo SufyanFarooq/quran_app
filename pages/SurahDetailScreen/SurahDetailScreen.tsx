@@ -7,12 +7,12 @@ import {
   View,
   ScrollView,
   Image,
-  Modal,
 } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList, getSurah } from '../../App';
 import { saveLastReadPosition, addBookmark } from '../storageUtils';
 import styles from './SurahDetailScreen.style';
+import AyahActionModal from '../../components/AyahActionModal/AyahActionModal';
 function convertToUrduNumeral(numStr: string) {
   const urduDigits = ['۰','۱','۲','۳','۴','۵','۶','۷','۸','۹'];
   return numStr.replace(/\d/g, d => urduDigits[parseInt(d)]);
@@ -195,36 +195,14 @@ export default function SurahDetailScreen({
           </ScrollView>
         </View>
       )}
-      {/* Bottom Sheet Modal */}
-      <Modal
+      <AyahActionModal
         visible={modalVisible}
-        transparent
-        animationType="slide"
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
-            <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 18, textAlign: 'center' }}>Actions</Text>
-            <Text
-              style={styles.modalAction}
-              onPress={async () => {
-                if (selectedAyah) {
-                  await addBookmark(selectedAyah);
-                }
-                setModalVisible(false);
-              }}
-            >
-              Bookmark
-            </Text>
-            <Text
-              style={styles.modalCancel}
-              onPress={() => setModalVisible(false)}
-            >
-              Cancel
-            </Text>
-          </View>
-        </View>
-      </Modal>
+        onClose={() => setModalVisible(false)}
+        selectedAyah={selectedAyah}
+        onBookmark={async (ayah) => {
+          await addBookmark(ayah);
+        }}
+      />
     </SafeAreaView>
   );
 }

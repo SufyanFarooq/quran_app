@@ -6,9 +6,6 @@ import {
   ScrollView,
   View,
   Image,
-  Modal,
-  TouchableOpacity,
-  Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackScreenProps } from '@react-navigation/stack';
@@ -16,6 +13,7 @@ import { RootStackParamList, getSurah } from '../../App';
 import surahList from '../../quran-data/surah.json';
 import { saveLastReadPosition, addBookmark } from '../storageUtils';
 import styles from './JuzReadingScreen.style';
+import AyahActionModal from '../../components/AyahActionModal/AyahActionModal';
 function getJuzAyat(
   ayat: Array<{ surah: string; verse?: string; ayah?: string; text?: string }>,
   startSurah: string,
@@ -253,106 +251,14 @@ export default function JuzReadingScreen({
           })}
         </ScrollView>
       )}
-      {/* Bottom Sheet Modal */}
-      <Modal
+      <AyahActionModal
         visible={modalVisible}
-        transparent
-        animationType="slide"
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View
-          style={{
-            flex: 1,
-            justifyContent: 'flex-end',
-            backgroundColor: 'rgba(0,0,0,0.25)',
-            paddingHorizontal:12
-          }}
-        >
-          <View
-            style={{
-              backgroundColor: '#fff',
-              borderTopLeftRadius: 18,
-              borderTopRightRadius: 18,
-              width: '100%',
-              overflow: 'hidden',
-            }}
-          >
-            {/* Dropdown Arrow */}
-            <TouchableOpacity
-              style={{ alignItems: 'center' }}
-              onPress={() => setModalVisible(false)}
-            >
-              <Image
-                source={require('../../assets/modal/down.png')}
-                style={{
-                  width: 32,
-                  height: 32,
-                  marginVertical: 8,
-                  tintColor: '#aaa',
-                }}
-                resizeMode="contain"
-              />
-            </TouchableOpacity>
-
-            {/* Menu List */}
-            {[
-              {
-                key: 'play',
-                label: 'Play Ayah',
-                icon: require('../../assets/modal/play.png'),
-                onPress: () => Alert.alert('Coming soon!'),
-              },
-              {
-                key: 'bookmark',
-                label: 'Bookmark',
-                icon: require('../../assets/modal/favorite.png'),
-                onPress: async () => {
-                  if (selectedAyah) await addBookmark(selectedAyah);
-                  setModalVisible(false);
-                },
-              },
-              {
-                key: 'copy',
-                label: 'Copy',
-                icon: require('../../assets/modal/sheet.png'),
-                onPress: () => Alert.alert('Coming soon!'),
-              },
-              {
-                key: 'share',
-                label: 'Share only text',
-                icon: require('../../assets/modal/share-text.png'),
-                onPress: () => Alert.alert('Coming soon!'),
-              },
-              {
-                key: 'share_bg',
-                label: 'Share text with background',
-                icon: require('../../assets/modal/share-image.png'),
-                onPress: () => Alert.alert('Coming soon!'),
-              },
-            ].map(item => (
-              <TouchableOpacity
-                key={item.key}
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                  paddingVertical: 14,
-                  paddingHorizontal: 24,
-                }}
-                onPress={item.onPress}
-              >
-                <Image
-                  source={item.icon}
-                  style={{ width: 28, height: 28, marginRight: 8 }}
-                  resizeMode="contain"
-                />
-                <Text style={{ fontSize: 18, marginLeft: 8 }}>
-                  {item.label}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </View>
-      </Modal>
+        onClose={() => setModalVisible(false)}
+        selectedAyah={selectedAyah}
+        onBookmark={async (ayah) => {
+          await addBookmark(ayah);
+        }}
+      />
       
     </SafeAreaView>
   );
