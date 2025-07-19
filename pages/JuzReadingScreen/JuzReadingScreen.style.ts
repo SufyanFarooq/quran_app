@@ -34,10 +34,10 @@ const styles = StyleSheet.create({
   ayatText: {
     fontSize: 20,
     color: '#222',
-    marginBottom: 12,
     textAlign: 'right',
     lineHeight: 32,
-    fontFamily: 'System',
+    fontFamily: 'NotoNaskhArabic', // Only here!
+    writingDirection: 'rtl',
   },
   pagination: {
     flexDirection: 'row',
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   },
   ayatMedalContainer: {
     flexDirection: 'row-reverse',
-    alignItems: 'center',
+    alignItems: 'flex-end',
   },
   medalContainer: {
     width: 28,

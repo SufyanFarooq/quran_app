@@ -148,6 +148,7 @@ export default function SurahDetailScreen({
                             surahName,
                             ayahNumber: a.verse ? a.verse.replace('verse_', '') : a.ayah ? a.ayah : (idx + 1).toString(),
                             type: 'surah',
+                            text:a.text,
                           });
                           setModalVisible(true);
                         }}

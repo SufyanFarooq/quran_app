@@ -17,7 +17,8 @@ import JuzListScreen from './pages/JuzListScreen/JuzListScreen';
 import JuzReadingScreen from './pages/JuzReadingScreen/JuzReadingScreen';
 import LandingScreen from './pages/LandingScreen/LandingScreen';
 import BookmarksScreen from './pages/BookmarsScreen/BookmarksScreen';
-
+import ReadQuranList from './pages/ReadQuran/ReadQuranList/ReadQuranList';
+import QuranPdfReader from './pages/ReadQuran/ReadQuranScreen/ReadQuranScreen';
 // Root stack param list for navigation types
 export type RootStackParamList = {
   Landing: undefined;
@@ -38,6 +39,8 @@ export type RootStackParamList = {
     ayahNumber?: string;
   };
   Bookmarks: undefined;
+  ReadQuranList: undefined;
+  ReadQuran: { page?: number };
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -118,6 +121,16 @@ export default function App() {
           name="Bookmarks"
           component={BookmarksScreen}
           options={{ title: 'Bookmarks' }}
+        />
+        <Stack.Screen
+          name="ReadQuranList"
+          component={ReadQuranList}
+          options={{ title: 'Read Quran' }}
+        />
+        <Stack.Screen
+          name="ReadQuran"
+          component={QuranPdfReader}
+          options={{ headerShown: false }}
         />
       </Stack.Navigator>
     </NavigationContainer>

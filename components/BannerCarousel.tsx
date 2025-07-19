@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, Animated, Dimensions, StyleSheet } from 'react-native';
 import moment from 'moment-hijri';
-import { days, months } from '../pages/dateUtils';
+import { days, months } from '../utils/dateUtils';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const BANNER_HEIGHT = Math.round(SCREEN_WIDTH * 0.45);
@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
   bannerImage: {
     width: '100%',
     height: '100%',
+    objectFit: 'fill',
     position: 'absolute',
     left: 0,
     top: 0,

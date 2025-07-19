@@ -25,8 +25,6 @@ export default function MenuScreen({
 }: StackScreenProps<RootStackParamList, 'Menu'>) {
   const [jumpModalVisible, setJumpModalVisible] = useState(false);
 
-
-
   // Move MENU_ITEMS inside the component to access setJumpModalVisible
   const MENU_ITEMS = [
     {
@@ -54,7 +52,12 @@ export default function MenuScreen({
         }
       },
     },
-    { key: 'read', label: 'Read Quran', icon: '🕋', onPress: () => {} },
+    {
+      key: 'read',
+      label: 'Read Quran',
+      icon: '🕋',
+      onPress: (nav: any) => nav.navigate('ReadQuranList'),
+    },
     {
       key: 'surahs',
       label: 'Surahs',
@@ -68,10 +71,20 @@ export default function MenuScreen({
       onPress: (nav: any) => nav.navigate('JuzList'),
     },
     { key: 'settings', label: 'Settings', icon: '⚙️', onPress: () => {} },
-    { key: 'jump', label: 'Jump to Ayah', icon: '↗️', onPress: () => setJumpModalVisible(true) },
-    { key: 'bookmarks', label: 'Bookmarks', icon: '🔖', onPress: (nav: any) => nav.navigate('Bookmarks') },
+    {
+      key: 'jump',
+      label: 'Jump to Ayah',
+      icon: '↗️',
+      onPress: () => setJumpModalVisible(true),
+    },
+    {
+      key: 'bookmarks',
+      label: 'Bookmarks',
+      icon: '🔖',
+      onPress: (nav: any) => nav.navigate('Bookmarks'),
+    },
   ];
-  
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#f5f5f5' }}>
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />

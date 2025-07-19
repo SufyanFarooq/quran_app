@@ -1,0 +1,686 @@
+[
+    {
+        "index": 1,
+        "title_ar": "الفاتحة",
+        "title_en": "Al-Fatiha",
+        "start_page": 1
+    },
+    {
+        "index": 2,
+        "title_ar": "البقرة",
+        "title_en": "Al-Baqarah",
+        "start_page": 2
+    },
+    {
+        "index": 3,
+        "title_ar": "آل عمران",
+        "title_en": "Aal-E-Imran",
+        "start_page": 45
+    },
+    {
+        "index": 4,
+        "title_ar": "النساء",
+        "title_en": "An-Nisa",
+        "start_page": 69
+    },
+    {
+        "index": 5,
+        "title_ar": "المائدة",
+        "title_en": "Al-Ma'idah",
+        "start_page": 96
+    },
+    {
+        "index": 6,
+        "title_ar": "الأنعام",
+        "title_en": "Al-An'am",
+        "start_page": 115
+    },
+    {
+        "index": 7,
+        "title_ar": "الأعراف",
+        "title_en": "Al-A'raf",
+        "start_page": 136
+    },
+    {
+        "index": 8,
+        "title_ar": "الأنفال",
+        "title_en": "Al-Anfal",
+        "start_page": 159
+    },
+    {
+        "index": 9,
+        "title_ar": "التوبة",
+        "title_en": "At-Tawbah",
+        "start_page": 168
+    },
+    {
+        "index": 10,
+        "title_ar": "يونس",
+        "title_en": "Yunus",
+        "start_page": 187
+    },
+    {
+        "index": 11,
+        "title_ar": "هود",
+        "title_en": "Hud",
+        "start_page": 199
+    },
+    {
+        "index": 12,
+        "title_ar": "يوسف",
+        "title_en": "Yusuf",
+        "start_page": 212
+    },
+    {
+        "index": 13,
+        "title_ar": "الرعد",
+        "title_en": "Ar-Ra'd",
+        "start_page": 224
+    },
+    {
+        "index": 14,
+        "title_ar": "إبراهيم",
+        "title_en": "Ibrahim",
+        "start_page": 230
+    },
+    {
+        "index": 15,
+        "title_ar": "الحجر",
+        "title_en": "Al-Hijr",
+        "start_page": 235
+    },
+    {
+        "index": 16,
+        "title_ar": "النحل",
+        "title_en": "An-Nahl",
+        "start_page": 240
+    },
+    {
+        "index": 17,
+        "title_ar": "الإسراء",
+        "title_en": "Al-Isra",
+        "start_page": 254
+    },
+    {
+        "index": 18,
+        "title_ar": "الكهف",
+        "title_en": "Al-Kahf",
+        "start_page": 264
+    },
+    {
+        "index": 19,
+        "title_ar": "مريم",
+        "title_en": "Maryam",
+        "start_page": 275
+    },
+    {
+        "index": 20,
+        "title_ar": "طه",
+        "title_en": "Ta-Ha",
+        "start_page": 281
+    },
+    {
+        "index": 21,
+        "title_ar": "الأنبياء",
+        "title_en": "Al-Anbiya",
+        "start_page": 290
+    },
+    {
+        "index": 22,
+        "title_ar": "الحج",
+        "title_en": "Al-Hajj",
+        "start_page": 299
+    },
+    {
+        "index": 23,
+        "title_ar": "المؤمنون",
+        "title_en": "Al-Mu'minun",
+        "start_page": 308
+    },
+    {
+        "index": 24,
+        "title_ar": "النور",
+        "title_en": "An-Nur",
+        "start_page": 315
+    },
+    {
+        "index": 25,
+        "title_ar": "الفرقان",
+        "title_en": "Al-Furqan",
+        "start_page": 324
+    },
+    {
+        "index": 26,
+        "title_ar": "الشعراء",
+        "title_en": "Ash-Shu'ara",
+        "start_page": 330
+    },
+    {
+        "index": 27,
+        "title_ar": "النمل",
+        "title_en": "An-Naml",
+        "start_page": 339
+    },
+    {
+        "index": 28,
+        "title_ar": "القصص",
+        "title_en": "Al-Qasas",
+        "start_page": 347
+    },
+    {
+        "index": 29,
+        "title_ar": "العنكبوت",
+        "title_en": "Al-Ankabut",
+        "start_page": 357
+    },
+    {
+        "index": 30,
+        "title_ar": "الروم",
+        "title_en": "Ar-Rum",
+        "start_page": 364
+    },
+    {
+        "index": 31,
+        "title_ar": "لقمان",
+        "title_en": "Luqman",
+        "start_page": 370
+    },
+    {
+        "index": 32,
+        "title_ar": "السجدة",
+        "title_en": "As-Sajda",
+        "start_page": 373
+    },
+    {
+        "index": 33,
+        "title_ar": "الأحزاب",
+        "title_en": "Al-Ahzab",
+        "start_page": 376
+    },
+    {
+        "index": 34,
+        "title_ar": "سبإ",
+        "title_en": "Saba",
+        "start_page": 385
+    },
+    {
+        "index": 35,
+        "title_ar": "فاطر",
+        "title_en": "Fatir",
+        "start_page": 391
+    },
+    {
+        "index": 36,
+        "title_ar": "يس",
+        "title_en": "Ya-Sin",
+        "start_page": 396
+    },
+    {
+        "index": 37,
+        "title_ar": "الصافات",
+        "title_en": "As-Saffat",
+        "start_page": 401
+    },
+    {
+        "index": 38,
+        "title_ar": "ص",
+        "title_en": "Sad",
+        "start_page": 408
+    },
+    {
+        "index": 39,
+        "title_ar": "الزمر",
+        "title_en": "Az-Zumar",
+        "start_page": 412
+    },
+    {
+        "index": 40,
+        "title_ar": "سورة المؤمن",
+        "title_en": "Surah Al-Mu’min",
+        "start_page": 420
+    },
+    {
+        "index": 41,
+        "title_ar": " حم السجدة",
+        "title_en": "Ha-Meem As-Sajdah",
+        "start_page": 429
+    },
+    {
+        "index": 42,
+        "title_ar": "الشورى",
+        "title_en": "Ash-Shura",
+        "start_page": 434
+    },
+    {
+        "index": 43,
+        "title_ar": "الزخرف",
+        "title_en": "Az-Zukhruf",
+        "start_page": 440
+    },
+    {
+        "index": 44,
+        "title_ar": "الدخان",
+        "title_en": "Ad-Dukhan",
+        "start_page": 446
+    },
+    {
+        "index": 45,
+        "title_ar": "الجاثية",
+        "title_en": "Al-Jathiya",
+        "start_page": 448
+    },
+    {
+        "index": 46,
+        "title_ar": "الأحقاف",
+        "title_en": "Al-Ahqaf",
+        "start_page": 452
+    },
+    {
+        "index": 47,
+        "title_ar": "محمد",
+        "title_en": "Muhammad",
+        "start_page": 456
+    },
+    {
+        "index": 48,
+        "title_ar": "الفتح",
+        "title_en": "Al-Fath",
+        "start_page": 460
+    },
+    {
+        "index": 49,
+        "title_ar": "الحجرات",
+        "title_en": "Al-Hujurat",
+        "start_page": 463
+    },
+    {
+        "index": 50,
+        "title_ar": "ق",
+        "title_en": "Qaf",
+        "start_page": 466
+    },
+    {
+        "index": 51,
+        "title_ar": "الذاريات",
+        "title_en": "Adh-Dhariyat",
+        "start_page": 468
+    },
+    {
+        "index": 52,
+        "title_ar": "الطور",
+        "title_en": "At-Tur",
+        "start_page": 471
+    },
+    {
+        "index": 53,
+        "title_ar": "النجم",
+        "title_en": "An-Najm",
+        "start_page": 473
+    },
+    {
+        "index": 54,
+        "title_ar": "القمر",
+        "title_en": "Al-Qamar",
+        "start_page": 475
+    },
+    {
+        "index": 55,
+        "title_ar": "الرحمن",
+        "title_en": "Ar-Rahman",
+        "start_page": 478
+    },
+    {
+        "index": 56,
+        "title_ar": "الواقعة",
+        "title_en": "Al-Waqia",
+        "start_page": 481
+    },
+    {
+        "index": 57,
+        "title_ar": "الحديد",
+        "title_en": "Al-Hadid",
+        "start_page": 484
+    },
+    {
+        "index": 58,
+        "title_ar": "المجادلة",
+        "title_en": "Al-Mujadila",
+        "start_page": 488
+    },
+    {
+        "index": 59,
+        "title_ar": "الحشر",
+        "title_en": "Al-Hashr",
+        "start_page": 491
+    },
+    {
+        "index": 60,
+        "title_ar": "الممتحنة",
+        "title_en": "Al-Mumtahina",
+        "start_page": 495
+    },
+    {
+        "index": 61,
+        "title_ar": "الصف",
+        "title_en": "As-Saff",
+        "start_page": 497
+    },
+    {
+        "index": 62,
+        "title_ar": "الجمعة",
+        "title_en": "Al-Jumua",
+        "start_page": 499
+    },
+    {
+        "index": 63,
+        "title_ar": "المنافقون",
+        "title_en": "Al-Munafiqun",
+        "start_page": 500
+    },
+    {
+        "index": 64,
+        "title_ar": "التغابن",
+        "title_en": "At-Taghabun",
+        "start_page": 502
+    },
+    {
+        "index": 65,
+        "title_ar": "الطلاق",
+        "title_en": "At-Talaq",
+        "start_page": 504
+    },
+    {
+        "index": 66,
+        "title_ar": "التحريم",
+        "title_en": "At-Tahrim",
+        "start_page": 506
+    },
+    {
+        "index": 67,
+        "title_ar": "الملك",
+        "title_en": "Al-Mulk",
+        "start_page": 508
+    },
+    {
+        "index": 68,
+        "title_ar": "القلم",
+        "title_en": "Al-Qalam",
+        "start_page": 510
+    },
+    {
+        "index": 69,
+        "title_ar": "الحاقة",
+        "title_en": "Al-Haqqa",
+        "start_page": 512
+    },
+    {
+        "index": 70,
+        "title_ar": "المعارج",
+        "title_en": "Al-Maarij",
+        "start_page": 514
+    },
+    {
+        "index": 71,
+        "title_ar": "نوح",
+        "title_en": "Nuh",
+        "start_page": 516
+    },
+    {
+        "index": 72,
+        "title_ar": "الجن",
+        "title_en": "Al-Jinn",
+        "start_page": 518
+    },
+    {
+        "index": 73,
+        "title_ar": "المزمل",
+        "title_en": "Al-Muzzammil",
+        "start_page": 520
+    },
+    {
+        "index": 74,
+        "title_ar": "المدثر",
+        "title_en": "Al-Muddathir",
+        "start_page": 521
+    },
+    {
+        "index": 75,
+        "title_ar": "القيامة",
+        "title_en": "Al-Qiyama",
+        "start_page": 523
+    },
+    {
+        "index": 76,
+        "title_ar": "الانسان",
+        "title_en": "Al-Insan",
+        "start_page": 524
+    },
+    {
+        "index": 77,
+        "title_ar": "المرسلات",
+        "title_en": "Al-Mursalat",
+        "start_page": 526
+    },
+    {
+        "index": 78,
+        "title_ar": "النبأ",
+        "title_en": "An-Naba",
+        "start_page": 528
+    },
+    {
+        "index": 79,
+        "title_ar": "النازعات",
+        "title_en": "An-Nazi'at",
+        "start_page": 529
+    },
+    {
+        "index": 80,
+        "title_ar": "عبس",
+        "title_en": "Abasa",
+        "start_page": 530
+    },
+    {
+        "index": 81,
+        "title_ar": "التكوير",
+        "title_en": "At-Takwir",
+        "start_page": 532
+    },
+    {
+        "index": 82,
+        "title_ar": "الإنفطار",
+        "title_en": "Al-Infitar",
+        "start_page": 532
+    },
+    {
+        "index": 83,
+        "title_ar": "المطففين",
+        "title_en": "Al-Mutaffifin",
+        "start_page": 533
+    },
+    {
+        "index": 84,
+        "title_ar": "الانشقاق",
+        "title_en": "Al-Inshiqaq",
+        "start_page": 534
+    },
+    {
+        "index": 85,
+        "title_ar": "البروج",
+        "title_en": "Al-Buruj",
+        "start_page": 535
+    },
+    {
+        "index": 86,
+        "title_ar": "الطارق",
+        "title_en": "At-Tariq",
+        "start_page": 536
+    },
+    {
+        "index": 87,
+        "title_ar": "الأعلى",
+        "title_en": "Al-Ala",
+        "start_page": 537
+    },
+    {
+        "index": 88,
+        "title_ar": "الغاشية",
+        "title_en": "Al-Ghashiya",
+        "start_page": 537
+    },
+    {
+        "index": 89,
+        "title_ar": "الفجر",
+        "title_en": "Al-Fajr",
+        "start_page": 538
+    },
+    {
+        "index": 90,
+        "title_ar": "البلد",
+        "title_en": "Al-Balad",
+        "start_page": 539
+    },
+    {
+        "index": 91,
+        "title_ar": "الشمس",
+        "title_en": "Ash-Shams",
+        "start_page": 540
+    },
+    {
+        "index": 92,
+        "title_ar": "الليل",
+        "title_en": "Al-Lail",
+        "start_page": 540
+    },
+    {
+        "index": 93,
+        "title_ar": "الضحى",
+        "title_en": "Ad-Duha",
+        "start_page": 541
+    },
+    {
+        "index": 94,
+        "title_ar": "الشرح",
+        "title_en": "Ash-Sharh",
+        "start_page": 541
+    },
+    {
+        "index": 95,
+        "title_ar": "التين",
+        "title_en": "At-Tin",
+        "start_page": 542
+    },
+    {
+        "index": 96,
+        "title_ar": "العلق",
+        "title_en": "Al-Alaq",
+        "start_page": 542
+    },
+    {
+        "index": 97,
+        "title_ar": "القدر",
+        "title_en": "Al-Qadr",
+        "start_page": 543
+    },
+    {
+        "index": 98,
+        "title_ar": "البينة",
+        "title_en": "Al-Bayyina",
+        "start_page": 543
+    },
+    {
+        "index": 99,
+        "title_ar": "الزلزلة",
+        "title_en": "Az-Zalzalah",
+        "start_page": 544
+    },
+    {
+        "index": 100,
+        "title_ar": "العاديات",
+        "title_en": "Al-Adiyat",
+        "start_page": 544
+    },
+    {
+        "index": 101,
+        "title_ar": "القارعة",
+        "title_en": "Al-Qaria",
+        "start_page": 544
+    },
+    {
+        "index": 102,
+        "title_ar": "التكاثر",
+        "title_en": "At-Takathur",
+        "start_page": 545
+    },
+    {
+        "index": 103,
+        "title_ar": "العصر",
+        "title_en": "Al-Asr",
+        "start_page": 545
+    },
+    {
+        "index": 104,
+        "title_ar": "الهمزة",
+        "title_en": "Al-Humazah",
+        "start_page": 545
+    },
+    {
+        "index": 105,
+        "title_ar": "الفيل",
+        "title_en": "Al-Fil",
+        "start_page": 546
+    },
+    {
+        "index": 106,
+        "title_ar": "قريش",
+        "title_en": "Quraish",
+        "start_page": 546
+    },
+    {
+        "index": 107,
+        "title_ar": "الماعون",
+        "title_en": "Al-Maun",
+        "start_page": 546
+    },
+    {
+        "index": 108,
+        "title_ar": "الكوثر",
+        "title_en": "Al-Kawthar",
+        "start_page": 546
+    },
+    {
+        "index": 109,
+        "title_ar": "الكافرون",
+        "title_en": "Al-Kafiroon",
+        "start_page": 547
+    },
+    {
+        "index": 110,
+        "title_ar": "النصر",
+        "title_en": "An-Nasr",
+        "start_page": 547
+    },
+    {
+        "index": 111,
+        "title_ar": "المسد",
+        "title_en": "Al-Masad",
+        "start_page": 547
+    },
+    {
+        "index": 112,
+        "title_ar": "الإخلاص",
+        "title_en": "Al-Ikhlas",
+        "start_page": 547
+    },
+    {
+        "index": 113,
+        "title_ar": "الفلق",
+        "title_en": "Al-Falaq",
+        "start_page": 548
+    },
+    {
+        "index": 114,
+        "title_ar": "الناس",
+        "title_en": "An-Nas",
+        "start_page": 548
+    }
+]
