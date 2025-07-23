@@ -14,6 +14,7 @@ import RNFS from 'react-native-fs';
 import { RootStackParamList } from '../../App';
 import BannerCarousel from '../../components/BannerCarousel';
 import styles from './LandingScreen.style';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 // Helper to get a random ayat
 const getRandomAyat = async () => {
   // Pick a random surah
@@ -51,6 +52,7 @@ type Props = StackScreenProps<RootStackParamList, any>;
 
 export default function LandingScreen({ navigation }: Props) {
   const [ayah, setAyah] = useState<any>(null);
+  const insets = useSafeAreaInsets();
 
 
   useEffect(() => {
@@ -70,7 +72,7 @@ export default function LandingScreen({ navigation }: Props) {
           <Text style={styles.searchPlaceholder}>Search</Text>
         </View>
       </View>
-      <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1, paddingBottom: 100 }}>
         {/* Ayat Card */}
         {ayah && (
           <View style={styles.ayatCard}>
@@ -90,13 +92,25 @@ export default function LandingScreen({ navigation }: Props) {
         {/* Empty space for future features */}
         <View style={{ flex: 1, minHeight: 80 }} />
       </ScrollView>
-      {/* Quran Button */}
-      <TouchableOpacity
-        style={styles.quranButton}
-        onPress={() => navigation.navigate('Menu')}
+      <View
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          bottom: 0,
+          alignItems: 'center',
+          paddingBottom: insets.bottom + 16,
+          backgroundColor: 'transparent',
+          zIndex: 10,
+        }}
       >
-        <Text style={styles.quranButtonText}>Quran</Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.quranButton}
+          onPress={() => navigation.navigate('Menu')}
+        >
+          <Text style={styles.quranButtonText}>Quran</Text>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 }

@@ -15,7 +15,11 @@ import surahList from '../../quran-data/surah.json';
 import juzList from '../../quran-data/juz.json';
 import BannerCarousel from '../../components/BannerCarousel';
 import JumpToAyahModal from '../../components/JumpToAyahModal';
+import SettingModal from '../../components/SettingModal/SettingModal';
 import styles from './MenuScreen.styles';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { menuTranslations } from '../../locales/menu';
 
 // @ts-ignore
 declare module 'moment-hijri';
@@ -24,12 +28,17 @@ export default function MenuScreen({
   navigation,
 }: StackScreenProps<RootStackParamList, 'Menu'>) {
   const [jumpModalVisible, setJumpModalVisible] = useState(false);
+  const [settingModalVisible, setSettingModalVisible] = useState(false);
+
+  const quranLanguage = useSelector((state: RootState) => state.settings.quranLanguage);
+  const t = menuTranslations[quranLanguage];
+
 
   // Move MENU_ITEMS inside the component to access setJumpModalVisible
   const MENU_ITEMS = [
     {
       key: 'resume',
-      label: 'Resume Reading',
+      label: t.resume,
       icon: '📖',
       onPress: async (nav: any) => {
         const last = await loadLastReadPosition();
@@ -54,32 +63,32 @@ export default function MenuScreen({
     },
     {
       key: 'read',
-      label: 'Read Quran',
+      label: t.readQuran,
       icon: '🕋',
       onPress: (nav: any) => nav.navigate('ReadQuranList'),
     },
     {
       key: 'surahs',
-      label: 'Surahs',
+      label: t.surahs,
       icon: 'سورة',
       onPress: (nav: any) => nav.navigate('SurahList'),
     },
     {
       key: 'juz',
-      label: 'Juz',
+      label: t.juz,
       icon: 'پارہ',
       onPress: (nav: any) => nav.navigate('JuzList'),
     },
-    { key: 'settings', label: 'Settings', icon: '⚙️', onPress: () => {} },
+    { key: 'settings', label: t.settings, icon: '⚙️', onPress: () => setSettingModalVisible(true) },
     {
       key: 'jump',
-      label: 'Jump to Ayah',
+      label: t.jumpToAyah,
       icon: '↗️',
       onPress: () => setJumpModalVisible(true),
     },
     {
       key: 'bookmarks',
-      label: 'Bookmarks',
+      label: t.bookmarks,
       icon: '🔖',
       onPress: (nav: any) => nav.navigate('Bookmarks'),
     },
@@ -160,6 +169,10 @@ export default function MenuScreen({
           }}
           surahList={surahList}
           juzList={juzList}
+        />
+        <SettingModal
+          visible={settingModalVisible}
+          onClose={() => setSettingModalVisible(false)}
         />
       </View>
     </SafeAreaView>

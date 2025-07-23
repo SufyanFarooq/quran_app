@@ -8,6 +8,9 @@ import {
   StyleSheet,
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
+import { menuTranslations } from '../locales/menu';
 
 interface JumpToAyahModalProps {
   visible: boolean;
@@ -24,6 +27,8 @@ export default function JumpToAyahModal({
   surahList,
   juzList,
 }: JumpToAyahModalProps) {
+  const quranLanguage = useSelector((state: RootState) => state.settings.quranLanguage);
+  const t = menuTranslations[quranLanguage];
   console.log('juz list', juzList);
   const [jumpType, setJumpType] = useState<'surah' | 'juz'>('surah');
   // Surah dropdown state
@@ -31,9 +36,10 @@ export default function JumpToAyahModal({
   const [surahDropdownValue, setSurahDropdownValue] = useState(
     surahList[0]?.index || '001',
   );
+
   const [surahDropdownItems, setSurahDropdownItems] = useState(
     surahList.map(s => ({
-      label: `سورة ${s.title_ar} - ${parseInt(s.index)}`,
+      label: `${t.surah} ${s.title_ar} - ${parseInt(s.index)}`,
       value: s.index,
     })),
   );
@@ -42,11 +48,19 @@ export default function JumpToAyahModal({
   const [selectedJuz, setSelectedJuz] = useState(juzList[0]?.index || '1');
   const [juzDropdownItems, setJuzDropdownItems] = useState(
     juzList.map(j => ({
-      label: `پارہ ${j.title_ar || j.index} - ${parseInt(j.index, 10)}`,
+      label: `${t.juz} ${j.title_ar || j.index} - ${parseInt(j.index, 10)}`,
       value: j.index,
     })),
   );
   const [ayahNumber, setAyahNumber] = useState('');
+
+  // For Surah dropdown label
+  const selectedSurahObj = surahList.find(s => s.index === surahDropdownValue);
+  const surahTitle = selectedSurahObj ? selectedSurahObj.title_ar : '';
+
+  // For Juz dropdown label
+  const selectedJuzObj = juzList.find(j => j.index === selectedJuz);
+  const juzTitle = selectedJuzObj ? (selectedJuzObj.title_ar || selectedJuzObj.index) : selectedJuz;
 
   return (
     <Modal
@@ -57,7 +71,7 @@ export default function JumpToAyahModal({
     >
       <View style={styles.overlay}>
         <View style={styles.modalContent}>
-          <Text style={styles.title}>Jump to Ayah</Text>
+          <Text style={styles.title}>{t.jumpToAyahTitle}</Text>
           {/* Radio buttons */}
           <View style={styles.radioRow}>
             <TouchableOpacity
@@ -70,7 +84,7 @@ export default function JumpToAyahModal({
                   jumpType === 'surah' && styles.radioCircleSelected,
                 ]}
               />
-              <Text style={styles.radioLabel}>Surah</Text>
+              <Text style={styles.radioLabel}>{t.surah}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => setJumpType('juz')}
@@ -82,17 +96,14 @@ export default function JumpToAyahModal({
                   jumpType === 'juz' && styles.radioCircleSelected,
                 ]}
               />
-              <Text style={styles.radioLabel}>Juz</Text>
+              <Text style={styles.radioLabel}>{t.juz}</Text>
             </TouchableOpacity>
           </View>
           {/* Dropdown */}
           {jumpType === 'surah' ? (
             <>
               <Text style={styles.dropdownLabel}>
-                {`سورة ${
-                  surahList.find(s => s.index === surahDropdownValue)
-                    ?.title_ar || ''
-                } - ${parseInt(surahDropdownValue)}`}
+                {`${t.surah} ${surahTitle || ''} - ${parseInt(surahDropdownValue)}`}
               </Text>
               <DropDownPicker
                 open={surahDropdownOpen}
@@ -113,10 +124,7 @@ export default function JumpToAyahModal({
           ) : (
             <>
               <Text style={styles.dropdownLabel}>
-                {`پارہ ${
-                  juzList.find(j => j.index === selectedJuz)?.title_ar ||
-                  selectedJuz
-                } - ${parseInt(selectedJuz, 10)}`}
+                {`${t.juz} ${juzTitle || ''} - ${parseInt(selectedJuz, 10)}`}
               </Text>
               <DropDownPicker
                 open={juzDropdownOpen}
@@ -136,50 +144,47 @@ export default function JumpToAyahModal({
             </>
           )}
           {/* Ayah Number Label */}
-          <Text style={styles.ayahLabel}>Ayah Number</Text>
+          <Text style={styles.ayahLabel}>{t.ayahNumber}</Text>
           {/* Ayah input */}
           <TextInput
             value={ayahNumber}
             onChangeText={setAyahNumber}
-            placeholder="Ayah Number"
+            placeholder={t.ayahNumber}
             keyboardType="numeric"
             style={styles.ayahInput}
           />
           {/* Buttons */}
           <View style={styles.btnRow}>
             <TouchableOpacity style={styles.cancelBtn} onPress={onClose}>
-              <Text style={styles.cancelBtnText}>Cancel</Text>
+              <Text style={styles.cancelBtnText}>{t.cancel}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.goBtn}
               onPress={() => {
                 if (jumpType === 'surah') {
+                  const selectedSurahObj = surahList.find(s => s.index === surahDropdownValue);
                   onJump({
                     type: 'surah',
                     surahNumber: surahDropdownValue,
-                    surahName:
-                      surahList.find(s => s.index === surahDropdownValue)
-                        ?.title_ar || '',
+                    surahName: selectedSurahObj ? selectedSurahObj.title_ar : '',
                     startAyah: ayahNumber,
                   });
                 } else {
                   const juz = juzList.find(j => j.index === selectedJuz);
-                  if (juz) {
-                    onJump({
-                      type: 'juz',
-                      startSurah: juz.start.index,
-                      startAyah: juz.start.verse,
-                      endSurah: juz.end.index,
-                      endAyah: juz.end.verse,
-                      juzName: `Juz ${juz.index}`,
-                      ayahNumber: ayahNumber,
-                    });
-                  }
+                  onJump({
+                    type: 'juz',
+                    startSurah: juz && juz.start ? juz.start.index : '',
+                    startAyah: juz && juz.start ? juz.start.verse : '',
+                    endSurah: juz && juz.end ? juz.end.index : '',
+                    endAyah: juz && juz.end ? juz.end.verse : '',
+                    juzName: `${t.juz} ${juz ? juz.index : ''}`,
+                    ayahNumber: ayahNumber,
+                  });
                 }
                 onClose();
               }}
             >
-              <Text style={styles.goBtnText}>Go</Text>
+              <Text style={styles.goBtnText}>{t.go}</Text>
             </TouchableOpacity>
           </View>
         </View>

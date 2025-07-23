@@ -65,10 +65,14 @@ const QuranPdfReader = ({ route }: Props) => {
         source={source}
         page={page}
         style={styles.pdf}
-        fitPolicy={2} // <-- FIT_HEIGHT
-        enablePaging={false}
-        horizontal={false}
-        // scale={1.1}
+        fitPolicy={2}
+        horizontal={true}
+        enablePaging={true}
+        minScale={1.0}
+        maxScale={1.0}
+        enableDoubleTapZoom={false}
+        // enablePinchZoom={false}
+      //  singlePage={true}
         onError={error => {
           console.log('PDF load error:', error);
         }}
@@ -96,17 +100,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#000',
-    padding: 0, // Ensure no padding
-    margin: 0, // Ensure no margin
+    padding: 0,
+    margin: 0,
   },
   fullScreen: {
     flex: 1,
     backgroundColor: '#000',
+    padding: 0,
+    margin: 0,
   },
   pdf: {
     flex: 1,
-    width: Dimensions.get('screen').width,
-    height: Dimensions.get('screen').height,
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
+    marginTop: 0,
+    marginBottom: 24, // for FAB
+    backgroundColor: '#000', // or '#fff' to match the page
   },
   fab: {
     position: 'absolute',

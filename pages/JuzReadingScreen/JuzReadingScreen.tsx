@@ -1,81 +1,164 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import {
   StatusBar,
   Text,
   ActivityIndicator,
   ScrollView,
   View,
+  Dimensions,
   Image,
 } from 'react-native';
-import { WebView } from 'react-native-webview';
+import { useFocusEffect } from '@react-navigation/native';
 import AutoHeightWebView from 'react-native-autoheight-webview';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { StackScreenProps } from '@react-navigation/stack';
 import { RootStackParamList, getSurah } from '../../App';
 import surahList from '../../quran-data/surah.json';
-import { saveLastReadPosition, addBookmark } from '../storageUtils';
+import {
+  saveLastReadPosition,
+  addBookmark,
+} from '../storageUtils';
 import styles from './JuzReadingScreen.style';
 import AyahActionModal from '../../components/AyahActionModal/AyahActionModal';
 import medalBase64 from '../../assets/medalBase64';
-import tajweedFiles from '../../tajweedRequireMap';
-import AutoSizedWebView from '../../components/WebViews/AutoSizedWebView';
-// Example: statically import surah_1.json for tajweed
-// import tajweed1 from '../../android/app/src/main/assets/tajweed/surah_1.json';
-
-const tajweedColors: Record<string, string> = {
-  hamzat_wasl: '#FF0000', // red
-  lam_shamsiyyah: '#00FF00', // green
-  madd_2: '#0000FF', // blue
-  madd_246: '#FFA500', // orange
-  madd_6: '#800080', // purple
-};
-
-function ayahToTajweedHTML(
-  ayahText: string,
-  tajweedArr: any[],
-  tajweedColors: Record<string, string>,
-  ayahNum: number,
-) {
-  if (!Array.isArray(tajweedArr) || tajweedArr.length === 0) {
-    return `<div dir="rtl" style="font-size:22px; font-family:'NotoNaskhArabic'; line-height:2;">${ayahText} <img src="${medalBase64}" style="height: 28px; vertical-align: middle; margin-left: 4px;" /><span style="font-size: 16px; color: #176d2c; font-weight: bold; vertical-align: middle;">${ayahNum}</span></div>`;
-  }
-  let html = '';
-  let lastIdx = 0;
-  for (let i = 0; i < tajweedArr.length; i++) {
-    const ruleObj = tajweedArr[i];
-    if (ruleObj.start > lastIdx) {
-      html += ayahText.slice(lastIdx, ruleObj.start);
-    }
-    const color = tajweedColors[ruleObj.rule] || '#000';
-    html += `<span style="color:${color}">${ayahText.slice(
-      ruleObj.start,
-      ruleObj.end,
-    )}</span>`;
-    lastIdx = ruleObj.end;
-  }
-  if (lastIdx < ayahText.length) {
-    html += ayahText.slice(lastIdx);
-  }
-  html += `
-  <span style="display: inline-flex; align-items: center; margin-right: 8px;">
-    <img src="${medalBase64}" style="height: 24px; width: 18px; vertical-align: middle; margin-left: 2px;" />
-    <span style="font-size: 16px; color: #176d2c; font-weight: bold; vertical-align: middle; margin-left: 2px;">${ayahNum}</span>
-  </span>
-`;
-  return `<div dir="rtl" style="font-size:22px; font-family:'NotoNaskhArabic'; line-height:2;">${html}</div>`;
-}
-
-// Helper to dynamically load tajweed JSON for a given surah number
-function getTajweedDataForAyah(surahNum: string, ayahNum: string) {
-  const file = tajweedFiles[parseInt(surahNum, 10)];
-  if (!file) return null;
-  return file.verse[`verse_${ayahNum}`];
-}
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import getTajweedCSS from '../../utils/ayaCSS';
+const quranTajweed = require('@kmaslesa/tajweed');
 
 function convertToUrduNumeral(numStr: string) {
   const urduDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
   return numStr.replace(/\d/g, d => urduDigits[parseInt(d)]);
 }
+
+function getGlobalAyahIndex(surahNum: number, ayahNum: number): number {
+  let index = 0;
+  for (let i = 0; i < surahNum - 1; i++) {
+    index += surahList[i].count;
+  }
+  return index + ayahNum;
+}
+
+type AyahCardProps = {
+  a: { surah: string; verse?: string; ayah?: string; text?: string };
+  idx: number;
+  quranFont: string;
+  quranFontSize: number;
+  handleAyahLayout: (ayahNum: string, y: number) => void;
+  surahList: Array<{ index: string; title_ar: string }>;
+  startSurah: string;
+  startAyah: string;
+  endSurah: string;
+  endAyah: string;
+  juzName: string;
+  setSelectedAyah: React.Dispatch<any>;
+  setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+const AyahCard = function AyahCard({ a, idx, quranFont, quranFontSize, handleAyahLayout, surahList, startSurah, startAyah, endSurah, endAyah, juzName, setSelectedAyah, setModalVisible }: AyahCardProps) {
+  let globalIndex;
+  const webViewWidth = Dimensions.get('window').width - 32;
+  const ayahNum =
+    (a.verse && a.verse.replace('verse_', '')) ||
+    a.ayah ||
+    (idx + 1).toString();
+  const surahNum = Number(a.surah);
+  if(Number(ayahNum) == 0 && surahNum !== 9) {
+    globalIndex = 1;
+  }else{
+    globalIndex = getGlobalAyahIndex(surahNum, Number(ayahNum));
+  }
+  const htmlAyah = quranTajweed.getAyahByIndex(globalIndex, true);
+  const htmlAyahStyled =
+    getTajweedCSS(quranFontSize) +
+    `<div class="ayah">
+    ${htmlAyah} <img src="${medalBase64}" class="medal-img" />
+    </div>`;
+  return (
+    <View
+      key={`${a.surah}-${ayahNum}`}
+      onLayout={event => handleAyahLayout(ayahNum, event.nativeEvent.layout.y)}
+      style={styles.ayahCard}
+    >
+      {/* Card header: Surah name (Arabic) and ayah number */}
+      <View style={styles.cardHeader}>
+        <Text
+          style={styles.cardHeaderText}
+          onPress={() => {
+            setSelectedAyah({
+              type: 'juz',
+              startSurah,
+              startAyah,
+              endSurah,
+              endAyah,
+              juzName,
+              text: a.text,
+              surahNumber: a.surah,
+              ayahNumber: ayahNum,
+            });
+            setModalVisible(true);
+          }}
+        >
+          ⋮
+        </Text>
+        {/* Center: Surah name + ayah number */}
+        <View style={styles.cardHeaderCenter}>
+          <Text style={styles.cardHeaderTitle}>
+            {`سورة ${
+              surahList.find(
+                (s: { index: string; title_ar: string }) => s.index === a.surah.padStart(3, '0'),
+              )?.title_ar || a.surah
+            } : ${convertToUrduNumeral(ayahNum)}`}
+          </Text>
+        </View>
+        {/* Right: empty for symmetry */}
+        <View style={styles.cardHeaderRight} />
+      </View>
+      {/* Ayat + Medal */}
+      {quranFont == 'Tajweed' ? (
+        <View
+          style={{
+            alignItems: 'center',
+            paddingVertical: 8,
+          }}
+        >
+          <AutoHeightWebView
+            style={{
+              width: webViewWidth,
+              backgroundColor: 'transparent',
+            }}
+            source={{ html: htmlAyahStyled }}
+            scrollEnabled={false}
+            viewportContent={'width=device-width, user-scalable=no'}
+          />
+        </View>
+      ) : (
+        <View
+          style={[
+            styles.ayahMedalRow,
+            {
+              flexDirection: 'row-reverse',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+              paddingVertical: 8,
+            },
+          ]}
+        >
+          <Text style={[styles.ayahText, { fontSize: quranFontSize }]}>{a.text}
+            <View style={styles.medalContainer}>
+              <Image
+                source={require('../../assets/medal.png')}
+                style={styles.medalImage}
+                resizeMode="contain"
+              />
+              <Text style={styles.medalText}>{String(ayahNum)}</Text>
+            </View>
+          </Text>
+        </View>
+      )}
+    </View>
+  );
+};
 
 export default function JuzReadingScreen({
   route,
@@ -93,9 +176,21 @@ export default function JuzReadingScreen({
   const [lastSavedAyah, setLastSavedAyah] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedAyah, setSelectedAyah] = useState<any>(null);
-  const [webViewHeights, setWebViewHeights] = useState<{
-    [key: number]: number;
-  }>({});
+  const quranFont = useSelector((state: RootState) => state.settings.quranFont);
+  const quranFontSize = useSelector((state: RootState) => state.settings.quranFontSize);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      // getQuranFont().then(setQuranFont); // This line is removed as per the edit hint
+    }, [])
+  );
+
+  useEffect(() => {
+    // AsyncStorage.getItem(QURAN_FONT_SIZE_KEY).then(val => {
+    //   if (val) setQuranFontSize(Number(val));
+    //   else setQuranFontSize(22);
+    // });
+  }, []);
 
   const handleScroll = (event: {
     nativeEvent: { contentOffset: { y: number } };
@@ -123,6 +218,13 @@ export default function JuzReadingScreen({
       });
     }
   };
+
+  const handleAyahLayout = useCallback((ayahNum: string, y: number) => {
+    setAyahPositions(pos => {
+      if (pos[ayahNum] === y) return pos;
+      return { ...pos, [ayahNum]: y };
+    });
+  }, []);
 
   useEffect(() => {
     setLoading(true);
@@ -177,31 +279,53 @@ export default function JuzReadingScreen({
       });
     }
   }, [loading, ayahPositions, ayahNumber]);
+
+  useEffect(() => {
+    let attempts = 0;
+    function tryScroll() {
+      if (
+        lastSavedAyah &&
+        ayahPositions[lastSavedAyah] !== undefined &&
+        scrollRef.current
+      ) {
+        scrollRef.current?.scrollTo({
+          y: ayahPositions[lastSavedAyah],
+          animated: false,
+        });
+      } else if (attempts < 5) {
+        attempts++;
+        setTimeout(tryScroll, 100);
+      }
+    }
+    tryScroll();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quranFont, quranFontSize, ayahPositions]);
+
   function getJuzAyat(
-    ayat: Array<{
+    allAyat: Array<{
       surah: string;
       verse?: string;
       ayah?: string;
       text?: string;
     }>,
-    startSurah: string,
-    startAyah: string,
-    endSurah: string,
-    endAyah: string,
+    sStart: string,
+    aStart: string,
+    sEnd: string,
+    aEnd: string,
   ): Array<{ surah: string; verse?: string; ayah?: string; text?: string }> {
-    const sStart = parseInt(startSurah, 10);
-    const sEnd = parseInt(endSurah, 10);
-    const aStart = parseInt(startAyah.replace('verse_', ''), 10);
-    const aEnd = parseInt(endAyah.replace('verse_', ''), 10);
-    return ayat.filter(a => {
+    const startSurahNum = parseInt(sStart, 10);
+    const endSurahNum = parseInt(sEnd, 10);
+    const startAyahNum = parseInt(aStart.replace('verse_', ''), 10);
+    const endAyahNum = parseInt(aEnd.replace('verse_', ''), 10);
+    return allAyat.filter(a => {
       const surah = parseInt(a.surah, 10);
       const ayah = parseInt(
         a.verse?.replace('verse_', '') || a.ayah || '0',
         10,
       );
-      if (surah < sStart || surah > sEnd) return false;
-      if (surah === sStart && ayah < aStart) return false;
-      if (surah === sEnd && ayah > aEnd) return false;
+      if (surah < startSurahNum || surah > endSurahNum) return false;
+      if (surah === startSurahNum && ayah < startAyahNum) return false;
+      if (surah === endSurahNum && ayah > endAyahNum) return false;
       return true;
     });
   }
@@ -211,7 +335,6 @@ export default function JuzReadingScreen({
       edges={['left', 'right', 'bottom']}
     >
       <StatusBar barStyle="dark-content" backgroundColor="#fff" />
-      <Text style={styles.surahDetailTitle}>{juzName}</Text>
       {loading ? (
         <ActivityIndicator size="large" color="#007bff" />
       ) : (
@@ -225,128 +348,24 @@ export default function JuzReadingScreen({
             const ayahNum =
               (a.verse && a.verse.replace('verse_', '')) ||
               a.ayah ||
-              (idx + 1).toString();
-            const tajweedArr = getTajweedDataForAyah(a.surah, ayahNum);
-            const htmlAyah = ayahToTajweedHTML(
-              a.text || '',
-              tajweedArr,
-              tajweedColors,
-              ayahNum,
-            );
-            const injectedJS = `
-  setTimeout(function() {
-    window.ReactNativeWebView.postMessage(document.body.scrollHeight.toString());
-  }, 100);
-  true;
-`;
+              (idx + 1).toString(); // fallback to index+1 if nothing else
             return (
-              <View
-                key={idx}
-                onLayout={event => {
-                  const { y } = event.nativeEvent.layout;
-                  setAyahPositions(pos => ({ ...pos, [ayahNum]: y }));
-                }}
-                style={styles.ayahCard}
-              >
-                {/* Card header: Surah name (Arabic) and ayah number */}
-                <View style={styles.cardHeader}>
-                  <Text
-                    style={styles.cardHeaderText}
-                    onPress={() => {
-                      setSelectedAyah({
-                        type: 'juz',
-                        startSurah,
-                        startAyah,
-                        endSurah,
-                        endAyah,
-                        juzName,
-                        text: a.text,
-                        surahNumber: a.surah,
-                        ayahNumber: a.verse
-                          ? a.verse.replace('verse_', '')
-                          : a.ayah
-                          ? a.ayah
-                          : (idx + 1).toString(),
-                      });
-                      setModalVisible(true);
-                    }}
-                  >
-                    ⋮
-                  </Text>
-                  {/* Center: Surah name + ayah number */}
-                  <View style={styles.cardHeaderCenter}>
-                    <Text style={styles.cardHeaderTitle}>
-                      {`سورة ${
-                        surahList.find(
-                          s => s.index === a.surah.padStart(3, '0'),
-                        )?.title_ar || a.surah
-                      } : ${convertToUrduNumeral(
-                        a.verse
-                          ? a.verse.replace('verse_', '')
-                          : a.ayah
-                          ? a.ayah
-                          : (idx + 1).toString(),
-                      )}`}
-                    </Text>
-                  </View>
-                  {/* Right: empty for symmetry */}
-                  <View style={styles.cardHeaderRight} />
-                </View>
-                {/* Ayat + Medal */}
-                <View style={styles.ayatMedalContainer}>
-
-<AutoHeightWebView
-  style={{ width: '100%', backgroundColor: 'transparent' }}
-  customStyle={`
-    body, div, p { margin: 0 !important; padding: 0 !important; }
-    * { font-family: 'NotoNaskhArabic', 'Times New Roman'; }
-  `}
-  source={{ html: htmlAyah }}
-  scrollEnabled={false}
-  viewportContent={'width=device-width, user-scalable=no'}
-/>
-                  {/* <WebView
-                    originWhitelist={['*']}
-                    source={{ html: htmlAyah }}
-                    style={{
-                      height:
-                        webViewHeights[ayahNum] && webViewHeights[ayahNum] > 0
-                          ? webViewHeights[ayahNum]
-                          : 60,
-                      backgroundColor: 'transparent',
-                    }}
-                    scrollEnabled={false}
-                    injectedJavaScript={injectedJS}
-                    onMessage={event => {
-                      const height = Number(event.nativeEvent.data);
-                      if (
-                        !isNaN(height) &&
-                        height > 0 &&
-                        height !== webViewHeights[ayahNum]
-                      ) {
-                        setWebViewHeights(h => ({ ...h, [ayahNum]: height }));
-                      }
-                    }}
-                  /> */}
-                  {/* <Text style={{ fontSize: 12, color: 'gray' }}>
-  Height: {webViewHeights[ayahNum] || '...'}
-</Text> */}
-                  {/* <View style={styles.medalContainer}>
-                    <Image
-                      source={require('../../assets/medal.png')}
-                      style={styles.medalImage}
-                      resizeMode="contain"
-                    />
-                    <Text style={styles.medalText}>
-                      {a.verse
-                        ? a.verse.replace('verse_', '')
-                        : a.ayah
-                        ? a.ayah
-                        : (idx + 1).toString()}
-                    </Text>
-                  </View> */}
-                </View>
-              </View>
+              <AyahCard
+                key={`${a.surah || 's'}-${ayahNum || idx}`}
+                a={a}
+                idx={idx}
+                quranFont={quranFont}
+                quranFontSize={quranFontSize}
+                handleAyahLayout={handleAyahLayout}
+                surahList={surahList}
+                startSurah={startSurah}
+                startAyah={startAyah}
+                endSurah={endSurah}
+                endAyah={endAyah}
+                juzName={juzName}
+                setSelectedAyah={setSelectedAyah}
+                setModalVisible={setModalVisible}
+              />
             );
           })}
         </ScrollView>
